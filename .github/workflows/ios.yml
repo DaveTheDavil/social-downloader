@@ -1,0 +1,45 @@
+# Budowa niepodpisanej .ipa na macOS runnerze (GitHub) — metoda „iOS bez Maca".
+# Artefakt: social-downloader-ipa → pobierz z Actions → Sideloadly na Windows
+# (+ iTunes/iCloud od Apple) → instalacja przez USB z darmowym Apple ID.
+name: iOS build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios.yml"
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project (XcodeGen)
+        run: |
+          brew install xcodegen
+          xcodegen generate
+        working-directory: ios
+
+      - name: Build unsigned app
+        run: |
+          xcodebuild -project SocialDownloader.xcodeproj \
+            -scheme SocialDownloader \
+            -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+        working-directory: ios
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/SocialDownloader.app Payload/
+          zip -qry SocialDownloader.ipa Payload
+        working-directory: ios
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: social-downloader-ipa
+          path: ios/SocialDownloader.ipa

@@ -1,0 +1,36 @@
+# Klucze podpisu licencji — NIGDY do repo / dystrybucji
+*.pem
+license.key
+keys/
+
+# Sesja Instagram (SECRET — pełne ciastko sesji!)
+engine/ig-cookie.txt
+
+# Konfig środowiskowe
+.env
+
+# Binarne silnika (budowane / pobierane automatycznie)
+engine/downloader.exe
+engine/yt-dlp*
+engine/ffmpeg*
+engine/*.tmp
+
+# Artefakty testowe
+*.mp4
+*.webm
+*.part
+
+# Exe (budowane / pobierane automatycznie)
+*.exe
+
+# Klient Windows (binarki + artefakty builda .NET)
+windows/bin/
+windows/obj/
+*.pdb
+
+# iOS — build + produkty XcodeGen (generowane na runnerze, nie w repo)
+ios/build/
+ios/Payload/
+ios/SocialDownloader.xcodeproj/
+ios/Info.plist
+*.ipa

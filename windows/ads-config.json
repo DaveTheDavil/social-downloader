@@ -1,0 +1,37 @@
+{
+  "banners": [
+    {
+      "id": "ban-001",
+      "advertiser": "Sklep Omega",
+      "title": "Kup teraz z dostawą za darmo!",
+      "description": "Elektronika, RTV, AGD w najlepszych cenach.",
+      "url": "https://example.com/sklep-omega",
+      "image": "assets/banner_omega.png",
+      "type": "banner",
+      "weight": 100
+    },
+    {
+      "id": "ban-002",
+      "advertiser": "GraX Studio",
+      "title": "Nowa gra strategiczna - darmowy start",
+      "description": "Zbuduj imperium i podbij świat.",
+      "url": "https://example.com/grax",
+      "image": "assets/banner_grax.png",
+      "type": "banner",
+      "weight": 80
+    }
+  ],
+  "interstitials": [
+    {
+      "id": "int-001",
+      "advertiser": "VPN Secure",
+      "title": "Chroń swoją prywatność w sieci",
+      "description": "Szybki i bezpieczny VPN na wszystkie urządzenia.",
+      "url": "https://example.com/vpn",
+      "image": "assets/int_vpn.png",
+      "type": "interstitial",
+      "seconds": 5,
+      "weight": 100
+    }
+  ]
+}
