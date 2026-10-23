@@ -26,6 +26,7 @@ engine/*.tmp
 # Klient Windows (binarki + artefakty builda .NET)
 windows/bin/
 windows/obj/
+windows/publish/
 *.pdb
 
 # iOS — build + produkty XcodeGen (generowane na runnerze, nie w repo)

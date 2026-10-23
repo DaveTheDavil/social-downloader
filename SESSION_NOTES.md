@@ -1,5 +1,12 @@
 # Notatki sesji — Social Media Downloader
 
+## 📦 Pakiet instalacyjny Windows (2026-10-23)
+
+- **Zbudowano przenośny pakiet ZIP na drugi komputer (Win10/11 x64):** `C:\Users\DrKu5h\Desktop\INSTALKA\SocialDownloader-1.0.0-win64.zip` (self-contained klient WPF + silnik z yt-dlp/ffmpeg + README/START.bat; sekret-gate czyści: bez license.key/ig-cookie/klucza prywatnego). Uruchomienie na drugim PC: rozpakować folder → START.bat (silnik hidden @127.0.0.1:8765 + klient). Klient publish był **self-contained** (`--self-contained true -p:DebugType=none -p:DebugSymbols=false` → `windows/publish`, hostfxr.dll wbudowany — nic nie instalować).
+- **Regeneracja pakietu:** (1) `engine/`: `go build -o downloader.exe .`; (2) `windows/`: `dotnet publish SocialDownloader.csproj -c Release -r win-x64 --self-contained true -p:DebugType=none -p:DebugSymbols=false -o publish`; (3) `powershell -File tools\package-windows.ps1 [-Version x.y.z]` — skrypt składa staging na `Desktop\INSTALKA\`, skanuje sekret-gate (license.key/ig-cookie*/private*/*.pem≠public/keys/obj/.git*/źródła .go,.cs,.xaml/.exe-poza-whitelistą → FAIL, nie zipuje), zipkuje + kopiuje README-INSTALKA.txt + wypluwa SHA256. Skrypt NIC nie kompiluje.
+- **Weryfikacja pakietu (na 8766):** healthz ok; `/info` (IG post) → format `img` 1350p; POST `/download` → `completed` 100%; `out.jpg` 79 934 B = `GET /file` round-trip (HTTP 200, ten sam rozmiar); `/license` premium=false; `/ads?type=banner` → banner zwrócony. `START.bat` przetestowany (silnik startuje ukryty z logiem `%TEMP%\sd-engine.log`, klient wstaje); yt-dlp w pakiecie 2026.10.21 (self-update działa z GitHuba, offline zostaje wersja z pakietu).
+- **Cechy na drugim PC:** tryb darmowy (reklamy, HD ≤720p) — license.key jest HWID-bound i nie jest dołączane przez design;`ig-cookie.txt` opcjonalne (klient „Zapisz sesję"); silnik nasłuchuje wyłącznie 127.0.0.1:8765.
+
 ## Stan: SILNIK ZOPTYMALIZOWANY PO PEŁNEJ ANALIZIE + WERYFIKACJA NA ŻYWO (2026-10-23)
 
 ## ✅ Poprawki krytyczne (z raportu analizy, po optymalizacji)
