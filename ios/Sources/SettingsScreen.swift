@@ -61,7 +61,7 @@ struct SettingsScreen: View {
             }
 
             Section("Pliki wynikowe") {
-                Text("Pobrania zapisują się w tej aplikacji (zakładka Pobrania) i są widoczne w aplikacji Pliki → „Na moim iPhone'ie" → SocialDownloader. Możesz je tam otworzyć, udostępnić lub przenieść.")
+                Text("Pobrania zapisują się w tej aplikacji (zakładka Pobrania) i są widoczne w aplikacji Pliki → „Na moim iPhone'ie” → SocialDownloader. Możesz je tam otworzyć, udostępnić lub przenieść.")
                     .font(.footnote)
                     .foregroundColor(.secondary)
             }
