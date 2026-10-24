@@ -1,0 +1,9 @@
+<svg width="480" height="136" viewBox="0 0 480 136" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="480" height="136" fill="#132743"/>
+  <rect x="0" y="0" width="480" height="6" fill="#FFC300"/>
+  <!-- Omega ring -->
+  <circle cx="64" cy="72" r="34" fill="none" stroke="#FFC300" stroke-width="9"/>
+  <line x1="40" y1="100" x2="88" y2="100" stroke="#FFC300" stroke-width="9" stroke-linecap="round"/>
+  <text x="118" y="66" font-family="Segoe UI, sans-serif" font-weight="700" font-size="34" fill="#FFFFFF">Sklep OMEGA</text>
+  <text x="120" y="100" font-family="Segoe UI, sans-serif" font-weight="400" font-size="19" fill="#8FB3D9" letter-spacing="3">ELEKTRONIKA · RTV · AGD</text>
+</svg>

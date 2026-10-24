@@ -6,32 +6,73 @@
       "title": "Kup teraz z dostawą za darmo!",
       "description": "Elektronika, RTV, AGD w najlepszych cenach.",
       "url": "https://example.com/sklep-omega",
-      "image": "assets/banner_omega.png",
+      "image": "adsimg/banner_omega.png",
       "type": "banner",
       "weight": 100
     },
     {
       "id": "ban-002",
       "advertiser": "GraX Studio",
-      "title": "Nowa gra strategiczna - darmowy start",
+      "title": "Nowa gra strategiczna — darmowy start",
       "description": "Zbuduj imperium i podbij świat.",
       "url": "https://example.com/grax",
-      "image": "assets/banner_grax.png",
+      "image": "adsimg/banner_grax.png",
       "type": "banner",
       "weight": 80
+    },
+    {
+      "id": "ban-003",
+      "advertiser": "Nowa Era RTV",
+      "title": "Strefa okazji tygodnia",
+      "description": "Telewizory, audio i AGD w cenach okazyjnych.",
+      "url": "https://example.com/nowa-era",
+      "image": "adsimg/banner_nowaera.png",
+      "type": "banner",
+      "weight": 70
+    },
+    {
+      "id": "ban-004",
+      "advertiser": "VPN Secure",
+      "title": "Chroń swoją prywatność w sieci",
+      "description": "Szyfrowanie 24/7 — jeden abonament, cała sieć.",
+      "url": "https://example.com/vpn",
+      "image": "adsimg/banner_vpn.png",
+      "type": "banner",
+      "weight": 60
+    },
+    {
+      "id": "ban-005",
+      "advertiser": "TheDAViL",
+      "title": "Narzędzia · skóry · poradniki",
+      "description": "Portal TheDAViL — pasja · kreatywność · wolność.",
+      "url": "https://thedavil.idsl.pl",
+      "image": "adsimg/banner_davil.png",
+      "type": "banner",
+      "weight": 50
     }
   ],
   "interstitials": [
     {
       "id": "int-001",
       "advertiser": "VPN Secure",
-      "title": "Chroć swoją prywatność w sieci",
+      "title": "Chroń swoją prywatność w sieci",
       "description": "Szybki i bezpieczny VPN na wszystkie urządzenia.",
       "url": "https://example.com/vpn",
-      "image": "assets/int_vpn.png",
+      "image": "adsimg/int_vpn.png",
       "type": "interstitial",
       "seconds": 5,
       "weight": 100
+    },
+    {
+      "id": "int-002",
+      "advertiser": "Sklep Omega",
+      "title": "Darmowa dostawa cały weekend",
+      "description": "Elektronika, RTV, AGD — do niedzieli bez kosztów wysyłki.",
+      "url": "https://example.com/sklep-omega",
+      "image": "adsimg/int_omega.png",
+      "type": "interstitial",
+      "seconds": 5,
+      "weight": 80
     }
   ]
 }

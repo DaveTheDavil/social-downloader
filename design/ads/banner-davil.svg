@@ -1,0 +1,16 @@
+<svg width="552" height="280" viewBox="0 0 552 280" xmlns="http://www.w3.org/2000/svg">
+  <rect width="552" height="280" fill="#0B0B0D"/>
+  <rect x="0" y="0" width="552" height="8" fill="#E2172C"/>
+  <!-- trident mark -->
+  <g transform="translate(58,72)" stroke="#E2172C" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M40 130 L40 60"/>
+    <path d="M40 130 L12 158"/>
+    <path d="M40 130 L68 158"/>
+    <path d="M12 18 L12 66"/>
+    <path d="M68 18 L68 66"/>
+    <path d="M40 8 L40 60"/>
+  </g>
+  <text x="168" y="128" font-family="Segoe UI, sans-serif" font-weight="800" font-size="52" fill="#FFFFFF">DAVE<tspan fill="#5E5E5E" font-weight="400">THE</tspan><tspan fill="#E2172C">DAVIL</tspan></text>
+  <text x="170" y="172" font-family="Segoe UI, sans-serif" font-weight="500" font-size="22" fill="#9A9AA2">Narzędzia · skóry · poradniki</text>
+  <text x="170" y="222" font-family="Segoe UI, sans-serif" font-weight="700" font-size="26" fill="#E2172C">→ thedavil.idsl.pl</text>
+</svg>

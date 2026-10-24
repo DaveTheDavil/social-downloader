@@ -1,0 +1,13 @@
+<svg width="320" height="240" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="240" fill="#101820"/>
+  <g transform="translate(104,16)">
+    <path d="M56 0 L112 21 L112 77 Q112 120 56 141 Q0 120 0 77 L0 21 Z" fill="#24D9A8" fill-opacity="0.14"/>
+    <path d="M56 0 L112 21 L112 77 Q112 120 56 141 Q0 120 0 77 L0 21 Z" fill="none" stroke="#24D9A8" stroke-width="7" stroke-linejoin="round"/>
+    <g transform="translate(36,49)">
+      <rect x="0" y="22" width="40" height="34" rx="7" fill="#24D9A8"/>
+      <path d="M7 22 L7 16 Q7 4 20 4 Q33 4 33 16 L33 22 L26 22 L26 16 Q26 11 20 11 Q14 11 14 16 L14 22 Z" fill="#24D9A8"/>
+    </g>
+  </g>
+  <text x="160" y="196" text-anchor="middle" font-family="Segoe UI, sans-serif" font-weight="800" font-size="27" fill="#FFFFFF">VPN SECURE</text>
+  <text x="160" y="222" text-anchor="middle" font-family="Segoe UI, sans-serif" font-weight="600" font-size="15" fill="#24D9A8" letter-spacing="2">PRYWATNOŚĆ 24/7</text>
+</svg>

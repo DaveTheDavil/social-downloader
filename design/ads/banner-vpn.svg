@@ -1,0 +1,15 @@
+<svg width="552" height="280" viewBox="0 0 552 280" xmlns="http://www.w3.org/2000/svg">
+  <rect width="552" height="280" fill="#101820"/>
+  <!-- shield -->
+  <g transform="translate(52,70)">
+    <path d="M70 0 L140 26 L140 96 Q140 150 70 176 Q0 150 0 96 L0 26 Z" fill="#24D9A8" fill-opacity="0.12"/>
+    <path d="M70 0 L140 26 L140 96 Q140 150 70 176 Q0 150 0 96 L0 26 Z" fill="none" stroke="#24D9A8" stroke-width="8" stroke-linejoin="round"/>
+    <g transform="translate(46,64)">
+      <rect x="0" y="28" width="48" height="40" rx="8" fill="#24D9A8"/>
+      <path d="M8 28 L8 20 Q8 6 24 6 Q40 6 40 20 L40 28 L32 28 L32 20 Q32 14 24 14 Q16 14 16 20 L16 28 Z" fill="#24D9A8"/>
+    </g>
+  </g>
+  <text x="240" y="130" font-family="Segoe UI, sans-serif" font-weight="800" font-size="46" fill="#FFFFFF">VPN SECURE</text>
+  <text x="242" y="172" font-family="Segoe UI, sans-serif" font-weight="600" font-size="24" fill="#24D9A8" letter-spacing="4">SZYFROWANIE 24/7</text>
+  <text x="242" y="216" font-family="Segoe UI, sans-serif" font-weight="400" font-size="19" fill="#7E97A8">Cała sieć · jeden abonament</text>
+</svg>

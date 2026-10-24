@@ -111,7 +111,30 @@ public class EngineClient : IDisposable
             LastError = (await ReadErrorBodyAsync(resp)) ?? $"Silnik zwrócił HTTP {(int)resp.StatusCode} przy reklamie.";
             return null;
         }
-        return await resp.Content.ReadFromJsonAsync<AdResponse>();
+        var doc = await resp.Content.ReadFromJsonAsync<AdResponse>();
+        if (doc?.Ad != null)
+        {
+            doc.Ad.Image = NormalizeAdImagePath(doc.Ad.Image);
+        }
+        return doc;
+    }
+
+    /// <summary>
+    /// WPF NIE rozwiązuje ścieżek względnych jako ścieżek dyskowych — string URI
+    /// w Image.Source leci do pack-base (zasoby wbudowane), a obrazy kreatyw
+    /// leżą OBOK exe (AdsImg\). Normalizacja do absolutnej ścieżki pliku
+    /// (albo przepust http/absolute bez zmian).
+    /// </summary>
+    private static string NormalizeAdImagePath(string image)
+    {
+        if (string.IsNullOrWhiteSpace(image)) return string.Empty;
+        if (Uri.TryCreate(image, UriKind.Absolute, out var abs)
+            && (abs.Scheme == Uri.UriSchemeFile || abs.Scheme == Uri.UriSchemeHttp || abs.Scheme == Uri.UriSchemeHttps))
+        {
+            return image;
+        }
+        var rel = image.Replace('/', System.IO.Path.DirectorySeparatorChar);
+        return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rel);
     }
 
     public async Task<LicenseInfo?> GetLicenseAsync()

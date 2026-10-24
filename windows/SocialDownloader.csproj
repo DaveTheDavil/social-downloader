@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Include="Resources\**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="ads-config.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="AdsImg\*.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <!-- Zasoby brandowe: czcionki (OFL: Poppins + Bebas Neue) i logo „bestia trójzębna" -->

@@ -1,0 +1,18 @@
+<svg width="552" height="280" viewBox="0 0 552 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A1650"/>
+      <stop offset="1" stop-color="#6B1F9E"/>
+    </linearGradient>
+  </defs>
+  <rect width="552" height="280" fill="url(#g)"/>
+  <!-- hex grid -->
+  <g stroke="#41D9FF" stroke-opacity="0.35" stroke-width="2" fill="none">
+    <path d="M60 60 L92 42 L124 60 L124 96 L92 114 L60 96 Z"/>
+    <path d="M124 96 L156 78 L188 96 L188 132 L156 150 L124 132 Z"/>
+    <path d="M448 180 L480 162 L512 180 L512 216 L480 234 L448 216 Z"/>
+  </g>
+  <text x="36" y="150" font-family="Segoe UI, sans-serif" font-weight="800" font-size="72" fill="#FFFFFF">GRAX</text>
+  <text x="40" y="196" font-family="Segoe UI, sans-serif" font-weight="600" font-size="26" fill="#41D9FF" letter-spacing="10">STUDIO</text>
+  <text x="38" y="246" font-family="Segoe UI, sans-serif" font-weight="400" font-size="20" fill="#D9C6F2">Zbuduj imperium i podbij świat.</text>
+</svg>
