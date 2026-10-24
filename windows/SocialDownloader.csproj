@@ -9,11 +9,19 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>SocialDownloader</AssemblyName>
     <RootNamespace>SocialDownloader</RootNamespace>
+    <ApplicationIcon>Assets\Logo\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="Resources\**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="ads-config.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Zasoby brandowe: czcionki (OFL: Poppins + Bebas Neue) i logo „bestia trójzębna" -->
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\*.ttf" />
+    <Resource Include="Assets\Logo\*.png" />
+    <Resource Include="Assets\Logo\app.ico" />
   </ItemGroup>
 
 </Project>

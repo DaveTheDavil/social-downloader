@@ -75,6 +75,9 @@ public class MainViewModel : INotifyPropertyChanged
     private string _status = "Wklej link do filmu/zdjęcia z FB, IG, TT lub YT.";
     private string _error = string.Empty;
     private AdUnit? _bannerAd;
+    private AdUnit? _sidebarAd;
+    private AdUnit? _sidebarAd2;
+    private AdUnit? _inlineAd;
     private AdUnit? _interstitialAd;
     private bool _isPremium;
     private string _outputFolder = string.Empty;
@@ -101,6 +104,10 @@ public class MainViewModel : INotifyPropertyChanged
 
         // Stan sesji IG odpytany przy starcie (silnik zna plik ig-cookie.txt).
         _ = RefreshIgSessionAsync();
+
+        // Reklamy widoczne od razu przy starcie (bez czekania na pierwszą analizę);
+        // przy premium-na-pliku sloty nie startują, a /info odświeża je po każdej analizie.
+        _ = LoadStartupAdsAsync();
 
         // Domyślny folder docelowy — użytkownik może tam od razu pobierać bez wybierania katalogu.
         var defFolder = Path.Combine(
@@ -202,7 +209,28 @@ public class MainViewModel : INotifyPropertyChanged
     public AdUnit? BannerAd
     {
         get => _bannerAd;
-        set { _bannerAd = value; OnPropertyChanged(); }
+        set { _bannerAd = value; OnPropertyChanged(); OnPropertyChanged(nameof(ShowLeaderboard)); }
+    }
+
+    /// <summary>Medium Rectangle 300×250 — drugi slot (sidebar treści).</summary>
+    public AdUnit? SidebarAd
+    {
+        get => _sidebarAd;
+        set { _sidebarAd = value; OnPropertyChanged(); OnPropertyChanged(nameof(ShowSidebar)); OnPropertyChanged(nameof(ShowSidebar2)); OnPropertyChanged(nameof(ShowRightRail)); }
+    }
+
+    /// <summary>Medium Rectangle 300×250 (2) — dolny slot prawej szyny; duplikat → slot milczy.</summary>
+    public AdUnit? SidebarAd2
+    {
+        get => _sidebarAd2;
+        set { _sidebarAd2 = value; OnPropertyChanged(); OnPropertyChanged(nameof(ShowSidebar2)); OnPropertyChanged(nameof(ShowRightRail)); }
+    }
+
+    /// <summary>In-content 468×60 — trzeci, dyskretny slot; wyświetlany tylko gdy nie-duplikat.</summary>
+    public AdUnit? InlineAd
+    {
+        get => _inlineAd;
+        set { _inlineAd = value; OnPropertyChanged(); OnPropertyChanged(nameof(ShowInline)); }
     }
 
     public AdUnit? InterstitialAd
@@ -214,12 +242,34 @@ public class MainViewModel : INotifyPropertyChanged
     public bool IsPremium
     {
         get => _isPremium;
-        set { _isPremium = value; OnPropertyChanged(); OnPropertyChanged(nameof(PremiumLabel)); OnPropertyChanged(nameof(ShowAds)); }
+        set
+        {
+            _isPremium = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(PremiumLabel));
+            OnPropertyChanged(nameof(ShowAds));
+            OnPropertyChanged(nameof(ShowLeaderboard));
+            OnPropertyChanged(nameof(ShowSidebar));
+            OnPropertyChanged(nameof(ShowSidebar2));
+            OnPropertyChanged(nameof(ShowInline));
+            OnPropertyChanged(nameof(ShowRightRail));
+        }
     }
 
     public string PremiumLabel => IsPremium ? "Tak" : "Nie";
 
     public bool ShowAds => !IsPremium;
+
+    // Widoczność slotów: darmowa wersja + kreatywa pod ręką
+    public bool ShowLeaderboard => ShowAds && BannerAd != null;
+    public bool ShowSidebar => ShowAds && SidebarAd != null;
+    public bool ShowSidebar2 => ShowAds && SidebarAd2 != null
+        // dedupe: drugi rect nie powtarza kreatywy z pierwszego
+        && !string.Equals(SidebarAd2?.Id, SidebarAd?.Id, StringComparison.Ordinal);
+    public bool ShowInline => ShowAds && InlineAd != null;
+
+    /// <summary>Prawa szyna istnieje, gdy ma cokolwiek pokazać (steruje szerokością kolumny).</summary>
+    public bool ShowRightRail => ShowAds && (SidebarAd != null || SidebarAd2 != null);
 
     public string OutputFolder
     {
@@ -337,7 +387,7 @@ public class MainViewModel : INotifyPropertyChanged
 
             if (!IsPremium)
             {
-                _ = LoadBannerAdAsync();
+                _ = LoadAdsAsync();
             }
         }
         catch (Exception ex)
@@ -408,14 +458,48 @@ public class MainViewModel : INotifyPropertyChanged
         Items = coll;
     }
 
-    private async Task LoadBannerAdAsync()
+    /// <summary>Reklamy przy starcie: premium-na-pliku (darmowy silnik) → sloty nie startują.</summary>
+    private async Task LoadStartupAdsAsync()
+    {
+        if (_license.IsPremium) return;
+        await LoadAdsAsync();
+    }
+
+    private async Task LoadAdsAsync()
     {
         try
         {
-            var ad = await _ads.GetBannerAdAsync();
-            BannerAd = ad;
+            // Silnik losuje wagowo kreatywę przy KAŻDYM wywołaniu — trzy pytania dają
+            // szansę na różne kreatywy w trzech slotach. Duplikat → slot milczy
+            // ("nie pażernie": nie stawiamy tej samej kreatywy dwukrotnie na ekranie).
+            var first = await _ads.GetBannerAdAsync();
+            var second = await _ads.GetBannerAdAsync();
+            var third = await _ads.GetBannerAdAsync();
+            var fourth = await _ads.GetBannerAdAsync();
+
+            BannerAd = first;
+            SidebarAd = second;
+            SidebarAd2 = fourth != null && fourth.Id != first?.Id && fourth.Id != second?.Id && fourth.Id != third?.Id ? fourth : null;
+            InlineAd = third != null && third.Id != first?.Id && third.Id != second?.Id ? third : null;
         }
-        catch { BannerAd = null; }
+        catch
+        {
+            BannerAd = null;
+            SidebarAd = null;
+            SidebarAd2 = null;
+            InlineAd = null;
+        }
+#if DEBUG
+        // Maszyna developerska ma lokalną premkę → pula pusta; w DEBUG doklejamy
+        // kreatywy demo, żeby dało się sprawdzić układ slotów. Release: nigdy.
+        if (BannerAd == null && SidebarAd == null)
+        {
+            BannerAd = new AdUnit { Id = "demo-lb", Advertiser = "Sklep Omega (demo)", Title = "Leaderboard 728×90 — kreatywa demo", Description = "Elektronika, RTV, AGD w najlepszych cenach." };
+            SidebarAd = new AdUnit { Id = "demo-rect", Advertiser = "GraX Studio (demo)", Title = "Medium Rectangle 300×250", Description = "Zbuduj imperium i podbij świat." };
+            SidebarAd2 = new AdUnit { Id = "demo-rect2", Advertiser = "VPN Secure (demo)", Title = "Medium Rectangle 300×250 (2)", Description = "Chroń prywatność w sieci — szyfrowanie wszystkich urządzeń." };
+            InlineAd = new AdUnit { Id = "demo-inline", Advertiser = "Nowa Era RTV (demo)", Title = "In-content 468×60 — kreatywa demo", Description = "Strefa okazji tygodnia." };
+        }
+#endif
     }
 
     /// <summary>
@@ -611,6 +695,9 @@ public class MainViewModel : INotifyPropertyChanged
         _license.SaveLicense(key);
         IsPremium = true;
         BannerAd = null;
+        SidebarAd = null;
+        SidebarAd2 = null;
+        InlineAd = null;
         InterstitialAd = null;
         Status = "Wersja premium aktywna – reklamy wyłączone.";
     }

@@ -14,6 +14,15 @@ public partial class App : System.Windows.Application
         var license = new LicenseService();
         var ads = new AdService(engine);
 
+        // Motyw: zapisany wybór w %APPDATA%\SocialDownloader\ui.json;
+        // OPS jest premium-only — bez licencji wracamy na Trident (fail-closed).
+        var theme = UiSettingsService.LoadTheme();
+        if (ThemeService.IsPremiumTheme(theme) && !license.IsPremium)
+        {
+            theme = "trident";
+        }
+        ThemeService.Apply(theme);
+
         var viewModel = new MainViewModel(engine, license, ads);
         var mainWindow = new MainWindow
         {

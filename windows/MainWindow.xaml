@@ -8,154 +8,320 @@
         xmlns:models="clr-namespace:SocialDownloader.Models"
         mc:Ignorable="d"
         Title="Social Downloader"
-        Width="850"
-        Height="700"
-        MinWidth="700"
-        MinHeight="550">
-    <Grid Margin="16">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <!-- Disclaimer -->
-        <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="11" Foreground="#666666"
-                   Margin="0,0,0,8">
-            <Run Text="Uwaga: "/><Run FontWeight="Bold" Text="Aplikacja służy do pobierania wyłącznie treści, na które masz prawa lub które są w domenie publicznej. "/>
-            <Run Text="Użytkownik ponosi pełną odpowiedzialność za przestrzeganie regulaminów platform i praw autorskich."/>
-        </TextBlock>
-
-        <!-- Sekcja linku -->
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,0,0,12">
-            <TextBlock Text="Wklej link do filmu lub zdjęcia (Facebook, Instagram, TikTok, YouTube):" FontWeight="SemiBold"/>
-            <DockPanel Margin="0,6,0,0">
-                <TextBox x:Name="UrlTextBox" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" MinWidth="400"/>
-                <Button Content="Analizuj" Command="{Binding AnalyzeCommand}" Style="{StaticResource PrimaryButton}" DockPanel.Dock="Right" Width="100"/>
-            </DockPanel>
-        </StackPanel>
-
-        <!-- Folder docelowy -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
-            <TextBlock Text="Folder docelowy:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
-            <TextBox Text="{Binding OutputFolder, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" VerticalAlignment="Center"/>
-            <Button Content="Wybierz folder" Click="ChooseFolder_Click" Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" Width="110"/>
-        </StackPanel>
-
-        <!-- Wynik analizy -->
-        <Border Grid.Row="3" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,12" Background="#F9F9F9">
-            <StackPanel>
-                <TextBlock Text="Wynik analizy" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
-                <TextBlock Text="{Binding VideoInfo.Title, FallbackValue='--', TargetNullValue='--'}" FontWeight="SemiBold" TextWrapping="Wrap"/>
-                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Czas: " Foreground="#666"/>
-                        <TextBlock Text="{Binding VideoInfo.Duration, StringFormat={}{0} s, FallbackValue='--'}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                        <TextBlock Text="Autor: " Foreground="#666"/>
-                        <TextBlock Text="{Binding VideoInfo.Uploader, FallbackValue='--'}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                        <TextBlock Text="Premium: " Foreground="#666"/>
-                        <TextBlock Text="{Binding PremiumLabel}" Foreground="{Binding IsPremium, Converter={x:Static local:BooleanToColorConverter.Instance}}"/>
-                    </StackPanel>
-                </StackPanel>
-                <TextBlock Text="{Binding Status}" Style="{StaticResource StatusText}" Margin="0,8,0,0"/>
-                <TextBlock Text="{Binding Error}" Style="{StaticResource ErrorText}" Margin="0,4,0,0"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Wybór jakości -->
-        <StackPanel Grid.Row="4" Orientation="Vertical" Margin="0,0,0,12">
-            <TextBlock Text="Wybierz jakość:" FontWeight="SemiBold" Margin="0,0,0,6"/>
-            <ComboBox ItemsSource="{Binding Qualities, FallbackValue={x:Null}}" SelectedItem="{Binding SelectedQuality, Mode=TwoWay}" MinWidth="120"/>
-            <TextBlock Text="{Binding Qualities.Count, StringFormat='Dostępne rozdzielczości: {0} (p)', FallbackValue='Dostępne rozdzielczości: 0 (p)'}" Foreground="#666" FontSize="11" Margin="0,4,0,0"/>
-            <TextBlock Text="{Binding PlaylistNote, FallbackValue=''}" TextWrapping="Wrap" Foreground="#8A6D3B" FontSize="11" Margin="0,2,0,0"/>
-        </StackPanel>
-
-        <!-- Lista pozycji do pobrania (seria IG / pojedyncze wideo) -->
-        <ListBox Grid.Row="5"
-                 ItemsSource="{Binding Items, FallbackValue={x:Null}}"
-                 MaxHeight="200"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 BorderBrush="#DDDDDD" BorderThickness="1" Padding="4"
-                 Margin="0,0,0,12"
-                 Visibility="{Binding HasItems, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding Label}" Margin="6,3,0,3" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <!-- Przycisk pobierania i postęp -->
-        <StackPanel Grid.Row="6" Orientation="Vertical" Margin="0,0,0,12">
-            <Button Content="{Binding DownloadButtonText, FallbackValue='Pobierz plik'}" Command="{Binding DownloadCommand}" Style="{StaticResource PrimaryButton}" Height="40"/>
-            <ProgressBar Value="{Binding Progress}" Height="8" Margin="0,8,0,0"/>
-            <TextBlock Text="{Binding Status}" Style="{StaticResource StatusText}" Margin="0,4,0,0"/>
-        </StackPanel>
-
-        <!-- Baner reklamowy (darmowa wersja) -->
-        <Border x:Name="AdBannerBorder" Grid.Row="7" Visibility="{Binding ShowAds, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}"
-                BorderBrush="#FFD700" BorderThickness="1" CornerRadius="4" Padding="8" Background="#FFF9E6" Margin="0,0,0,8">
-            <DockPanel>
-                <Image Source="{Binding BannerAd.Image, FallbackValue=''}" Width="64" Height="64" DockPanel.Dock="Left" Margin="0,0,8,0"/>
-                <StackPanel DockPanel.Dock="Right" Orientation="Vertical" HorizontalAlignment="Right">
-                    <Button Content="X" Width="24" Height="24" Background="Transparent" BorderThickness="0" Click="CloseBanner_Click"/>
-                </StackPanel>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="{Binding BannerAd.Title, FallbackValue='Reklama'}" FontWeight="Bold" TextTrimming="CharacterEllipsis"/>
-                    <TextBlock Text="{Binding BannerAd.Advertiser, FallbackValue=''}" FontSize="11" Foreground="#666"/>
-                </StackPanel>
-            </DockPanel>
-        </Border>
-
-        <!-- Sesja Instagram (panel ustawień MVP): paste cookie → pełne serie zdjęć.
-             Zawsze widoczny — można podmienić/wyczyścić cookie; label pokazuje stan. -->
-        <Border Grid.Row="8" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="4" Padding="8"
-                Margin="0,0,0,8" Background="#FAFAFA">
-            <StackPanel>
-                <TextBlock Text="Sesja Instagram (pełne serie zdjęć):" FontWeight="SemiBold" FontSize="12"/>
-                <Grid Margin="0,4,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
-                             Text="{Binding IgCookieInput, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                             ToolTip="Wklej cookie z przeglądarki (App devtools → Application → Cookies → www.instagram.com) — minimum: sessionid=...; ds_user_id=..."/>
-                    <Button Grid.Column="1" Content="Zapisz sesję" Command="{Binding SaveIgCookieCommand}"
-                            Style="{StaticResource PrimaryButton}" Margin="8,0,0,0" MinWidth="110"/>
-                </Grid>
-                <TextBlock Text="{Binding IgSessionLabel, FallbackValue='Sesja IG: nie ustawiona'}"
-                           FontSize="11" Foreground="#8A6D3B" Margin="0,3,0,0" TextWrapping="Wrap"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Licencja premium (ukryta, gdy licencja jest już aktywna) -->
-        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0,8,0,0"
-                    Visibility="{Binding IsPremium, Converter={x:Static local:BooleanToVisibilityInverseConverter.Instance}}">
-            <Button Content="Aktywuj wersję premium (test)" Command="{Binding ActivateLicenseCommand}" Style="{StaticResource PrimaryButton}"/>
-            <TextBlock Text="Własny klucz licencyjny: " Foreground="#666" VerticalAlignment="Center" Margin="12,0,0,0"/>
-            <TextBox x:Name="LicenseKeyBox" Width="200" Margin="4,0,0,0"/>
-        </StackPanel>
-
-        <StatusBar Grid.Row="10">
+        Width="900"
+        Height="720"
+        MinWidth="760"
+        MinHeight="520"
+        Icon="/Assets/Logo/app.ico"
+        Background="{DynamicResource Brush.Window.Background}"
+        Foreground="{DynamicResource Brush.Text}"
+        FontFamily="{DynamicResource Font.Body}"
+        FontSize="13">
+    <DockPanel>
+        <!-- StatusBar poza przewijaniem — zawsze przyklejony na dole -->
+        <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <TextBlock Text="{Binding Status, FallbackValue='Gotowy'}" FontSize="11"/>
             </StatusBarItem>
         </StatusBar>
-    </Grid>
+
+        <!-- Treść w ScrollViewerze: przy zmniejszeniu okna scrolluje (nie ucina) -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="14,10,14,14">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- ══ GŁOWA: logo „bestia trójzębna" + wordmark Bebas + wybór motywu ══ -->
+                <Border Grid.Row="0"
+                        Background="{DynamicResource Brush.Panel.Background}"
+                        BorderBrush="{DynamicResource Brush.Panel.Border}"
+                        BorderThickness="1" CornerRadius="10" Padding="14,10" Margin="0,0,0,8">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                            <TextBlock Text="MOTYW" FontSize="10" VerticalAlignment="Center" Margin="0,0,8,0"
+                                       Foreground="{DynamicResource Brush.TextMuted}"/>
+                            <ComboBox x:Name="ThemeCombo" Width="175" SelectionChanged="ThemeCombo_SelectionChanged"/>
+                        </StackPanel>
+                        <Image x:Name="HeaderLogo" Height="34" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="2,0,0,0"/>
+                        <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock FontFamily="{DynamicResource Font.Title}" FontSize="21"
+                                       Foreground="{DynamicResource Brush.Heading}">
+                                <Run Text="SOCIAL MEDIA "/><Run Text="DOWNLOADER" Foreground="{DynamicResource Brush.Accent}"/>
+                            </TextBlock>
+                            <TextBlock Text="DaveTheDavil · Facebook / Instagram / TikTok / YouTube"
+                                       FontSize="10" Margin="1,2,0,0"
+                                       Foreground="{DynamicResource Brush.TextMuted}"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- Disclaimer (kontrakt tekstu — bez zmian) -->
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" FontSize="11" Margin="2,0,2,10"
+                           Foreground="{DynamicResource Brush.TextMuted}">
+                    <Run Text="Uwaga: "/><Run FontWeight="Bold" Text="Aplikacja służy do pobierania wyłącznie treści, na które masz prawa lub które są w domenie publicznej. "/>
+                    <Run Text="Użytkownik ponosi pełną odpowiedzialność za przestrzeganie regulaminów platform i praw autorskich."/>
+                </TextBlock>
+
+                <!-- ══ LEADERBOARD 728×90 (IAB) — slot banner główny, klikalny całością ══ -->
+                <Border x:Name="LeaderboardAdBorder" Grid.Row="2" Width="728" Height="90"
+                        HorizontalAlignment="Center" Margin="0,0,0,12"
+                        Background="{DynamicResource Brush.Ad.BannerBackground}"
+                        BorderBrush="{DynamicResource Brush.Ad.BannerBorder}"
+                        BorderThickness="1" CornerRadius="8"
+                        Cursor="Hand" Tag="{Binding BannerAd}" MouseLeftButtonUp="OpenAdSlot_Click"
+                        Visibility="{Binding ShowLeaderboard, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Content="✕" Width="24" Height="24" FontSize="10" Padding="0"
+                                Style="{DynamicResource GhostButton}" Click="CloseLeaderboard_Click"
+                                VerticalAlignment="Center" Margin="6,0,4,0"/>
+                        <Image Source="{Binding BannerAd.Image, FallbackValue=''}" Height="68" MaxWidth="240"
+                               Stretch="Uniform" DockPanel.Dock="Left" Margin="4,0,10,0"/>
+                        <StackPanel VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBlock Text="{Binding BannerAd.Title, FallbackValue='Reklama'}"
+                                       FontFamily="{DynamicResource Font.BodySemiBold}" TextTrimming="CharacterEllipsis"
+                                       Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                            <TextBlock Text="{Binding BannerAd.Description, FallbackValue=''}" FontSize="11"
+                                       TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="30"
+                                       Foreground="{DynamicResource Brush.Ad.BannerText}" Opacity="0.8"/>
+                            <TextBlock Text="{Binding BannerAd.Advertiser, FallbackValue=''}" FontSize="10" Opacity="0.6"
+                                       Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- ══ TREŚĆ + SIDEBAR ══ -->
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto">
+                            <ColumnDefinition.Style>
+                                <Style TargetType="ColumnDefinition">
+                                    <Setter Property="Width" Value="Auto"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ShowRightRail}" Value="False">
+                                            <Setter Property="Width" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ColumnDefinition.Style>
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- kolumna treści -->
+                    <StackPanel Grid.Column="0">
+
+                        <!-- Sekcja linku -->
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Wklej link do filmu lub zdjęcia (Facebook, Instagram, TikTok, YouTube):"
+                                       FontFamily="{DynamicResource Font.BodySemiBold}"/>
+                            <DockPanel Margin="0,6,0,0">
+                                <Button Content="Analizuj" Command="{Binding AnalyzeCommand}" DockPanel.Dock="Right"
+                                        Width="110" Style="{DynamicResource PrimaryButton}" Margin="8,0,0,0"/>
+                                <TextBox x:Name="UrlTextBox" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <!-- Folder docelowy -->
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Folder docelowy:" FontFamily="{DynamicResource Font.BodySemiBold}" Margin="0,0,0,6"/>
+                            <DockPanel>
+                                <Button Content="Wybierz folder" DockPanel.Dock="Right" Width="120"
+                                        Click="ChooseFolder_Click" Style="{DynamicResource PrimaryButton}" Margin="8,0,0,0"/>
+                                <TextBox Text="{Binding OutputFolder, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <!-- Wynik analizy -->
+                        <Border Style="{DynamicResource SectionCard}" Margin="0,0,0,12">
+                            <StackPanel>
+                                <TextBlock Text="WYNIK ANALIZY" Style="{DynamicResource SubHeading}" Margin="0,0,0,8"/>
+                                <TextBlock Text="{Binding VideoInfo.Title, FallbackValue='--', TargetNullValue='--'}"
+                                           FontFamily="{DynamicResource Font.BodySemiBold}" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <TextBlock Text="Czas" Foreground="{DynamicResource Brush.TextDim}"/>
+                                    <TextBlock Text="{Binding VideoInfo.Duration, StringFormat={}{0} s, FallbackValue='--'}" Margin="5,0,0,0"/>
+                                    <TextBlock Text="Autor" Foreground="{DynamicResource Brush.TextDim}" Margin="18,0,0,0"/>
+                                    <TextBlock Text="{Binding VideoInfo.Uploader, FallbackValue='--'}" Margin="5,0,0,0"/>
+                                    <TextBlock Text="Premium" Foreground="{DynamicResource Brush.TextDim}" Margin="18,0,0,0"/>
+                                    <TextBlock Text="{Binding PremiumLabel}" Margin="5,0,0,0"
+                                               Foreground="{Binding IsPremium, Converter={x:Static local:BooleanToColorConverter.Instance}}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Status}" Style="{DynamicResource StatusText}" Margin="0,8,0,0"/>
+                                <TextBlock Text="{Binding Error}" Style="{DynamicResource ErrorText}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Wybór jakości -->
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Wybierz jakość:" FontFamily="{DynamicResource Font.BodySemiBold}" Margin="0,0,0,6"/>
+                            <ComboBox ItemsSource="{Binding Qualities, FallbackValue={x:Null}}"
+                                      SelectedItem="{Binding SelectedQuality, Mode=TwoWay}"
+                                      Width="170" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{Binding Qualities.Count, StringFormat='Dostępne rozdzielczości: {0} (p)', FallbackValue='Dostępne rozdzielczości: 0 (p)'}"
+                                       FontSize="11" Foreground="{DynamicResource Brush.TextMuted}" Margin="0,4,0,0"/>
+                            <TextBlock Text="{Binding PlaylistNote, FallbackValue=''}" TextWrapping="Wrap" FontSize="11"
+                                       Foreground="{DynamicResource Brush.Warn}" Margin="0,2,0,0"/>
+                        </StackPanel>
+
+                        <!-- Lista pozycji do pobrania (seria IG / pojedyncze wideo) -->
+                        <ListBox ItemsSource="{Binding Items, FallbackValue={x:Null}}"
+                                 MaxHeight="220"
+                                 Padding="6,4"
+                                 Margin="0,0,0,12"
+                                 Visibility="{Binding HasItems, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding Selected, Mode=TwoWay}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Label}" Margin="7,2,0,2" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <!-- Przycisk pobierania i postęp -->
+                        <StackPanel Margin="0,0,0,12">
+                            <Button Content="{Binding DownloadButtonText, FallbackValue='Pobierz plik'}" Command="{Binding DownloadCommand}"
+                                    Style="{DynamicResource PrimaryButton}" Height="40"/>
+                            <ProgressBar Value="{Binding Progress}" Margin="0,8,0,0"/>
+                            <TextBlock Text="{Binding Status}" Style="{DynamicResource StatusText}" Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <!-- ══ IN-CONTENT 468×60 (IAB) — dyskretny pasek po akcji pobierania ══ -->
+                        <Border x:Name="InlineAdBorder" Width="468" Height="60"
+                                HorizontalAlignment="Center" Margin="0,0,0,12"
+                                Background="{DynamicResource Brush.Ad.BannerBackground}"
+                                BorderBrush="{DynamicResource Brush.Ad.BannerBorder}"
+                                BorderThickness="1" CornerRadius="6"
+                                Cursor="Hand" Tag="{Binding InlineAd}" MouseLeftButtonUp="OpenAdSlot_Click"
+                                Visibility="{Binding ShowInline, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" Content="✕" Width="22" Height="22" FontSize="10" Padding="0"
+                                        Style="{DynamicResource GhostButton}" Click="CloseInline_Click"
+                                        VerticalAlignment="Center" Margin="4,0,4,0"/>
+                                <Image Source="{Binding InlineAd.Image, FallbackValue=''}" Height="44" MaxWidth="120"
+                                       Stretch="Uniform" DockPanel.Dock="Left" Margin="6,0,10,0"/>
+                                <StackPanel VerticalAlignment="Center" Margin="0,0,8,0">
+                                    <TextBlock Text="{Binding InlineAd.Title, FallbackValue='Reklama'}" FontSize="12"
+                                               FontFamily="{DynamicResource Font.BodySemiBold}" TextTrimming="CharacterEllipsis"
+                                               Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                                    <TextBlock Text="{Binding InlineAd.Advertiser, FallbackValue=''}" FontSize="10" Opacity="0.6"
+                                               Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Sesja Instagram: paste cookie → pełne serie zdjęć.
+                             Zawsze widoczny — można podmienić/wyczyścić cookie; label pokazuje stan. -->
+                        <Border Style="{DynamicResource SectionCard}" Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="SESJA INSTAGRAM — PEŁNE SERIE ZDJĘĆ" Style="{DynamicResource SubHeading}" Margin="0,0,0,6"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"
+                                             Text="{Binding IgCookieInput, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                             ToolTip="Wklej cookie z przeglądarki (App devtools → Application → Cookies → www.instagram.com) — minimum: sessionid=...; ds_user_id=..."/>
+                                    <Button Grid.Column="1" Content="Zapisz sesję" Command="{Binding SaveIgCookieCommand}"
+                                            Style="{DynamicResource PrimaryButton}" Margin="8,0,0,0" MinWidth="120"/>
+                                </Grid>
+                                <TextBlock Text="{Binding IgSessionLabel, FallbackValue='Sesja IG: nie ustawiona'}"
+                                           FontSize="11" Foreground="{DynamicResource Brush.Warn}" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Licencja premium (ukryta, gdy licencja jest już aktywna) -->
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
+                                    Visibility="{Binding IsPremium, Converter={x:Static local:BooleanToVisibilityInverseConverter.Instance}}">
+                            <Button Content="Aktywuj wersję premium (test)" Command="{Binding ActivateLicenseCommand}"
+                                    Style="{DynamicResource PrimaryButton}"/>
+                            <TextBox x:Name="LicenseKeyBox" Width="220" Margin="10,0,0,0"/>
+                            <TextBlock Text="Własny klucz licencyjny — premium usuwa reklamy i odblokowuje HD"
+                                       Foreground="{DynamicResource Brush.TextMuted}" FontSize="11"
+                                       VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Prawa szyna: rect 300×250 + drugi rect 300×250 (gdy ma cokolwiek) -->
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="12,0,0,0"
+                                Visibility="{Binding ShowRightRail, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+
+                        <!-- Medium Rectangle 300×250 (IAB) — górny slot prawej szyny -->
+                        <Border x:Name="SidebarAdBorder" Width="300" Height="250"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource Brush.Ad.BannerBackground}"
+                                BorderBrush="{DynamicResource Brush.Ad.BannerBorder}"
+                                BorderThickness="1" CornerRadius="8"
+                                Cursor="Hand" Tag="{Binding SidebarAd}" MouseLeftButtonUp="OpenAdSlot_Click"
+                                Visibility="{Binding ShowSidebar, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="10,10,10,0">
+                                    <Image Source="{Binding SidebarAd.Image, FallbackValue=''}" Stretch="Uniform" MaxHeight="140"/>
+                                    <Button Content="✕" Width="22" Height="22" FontSize="10" Padding="0"
+                                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0"
+                                            Style="{DynamicResource GhostButton}" Click="CloseSidebar_Click"/>
+                                </Grid>
+                                <TextBlock Grid.Row="1" Text="{Binding SidebarAd.Title, FallbackValue='Reklama'}"
+                                           FontFamily="{DynamicResource Font.BodySemiBold}" TextTrimming="CharacterEllipsis"
+                                           TextWrapping="Wrap" MaxHeight="36" Margin="12,8,12,0"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                                <TextBlock Grid.Row="2" Text="{Binding SidebarAd.Description, FallbackValue=''}" FontSize="11"
+                                           TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="28" Margin="12,2,12,0"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}" Opacity="0.8"/>
+                                <TextBlock Grid.Row="3" Text="{Binding SidebarAd.Advertiser, FallbackValue=''}" FontSize="10"
+                                           Opacity="0.6" Margin="12,0,12,8"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Medium Rectangle 300×250 (IAB) — dolny slot prawej szyny -->
+                        <Border x:Name="SidebarAd2Border" Width="300" Height="250"
+                                VerticalAlignment="Top" Margin="0,12,0,12"
+                                Background="{DynamicResource Brush.Ad.BannerBackground}"
+                                BorderBrush="{DynamicResource Brush.Ad.BannerBorder}"
+                                BorderThickness="1" CornerRadius="8"
+                                Cursor="Hand" Tag="{Binding SidebarAd2}" MouseLeftButtonUp="OpenAdSlot_Click"
+                                Visibility="{Binding ShowSidebar2, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="10,10,10,0">
+                                    <Image Source="{Binding SidebarAd2.Image, FallbackValue=''}" Stretch="Uniform" MaxHeight="140"/>
+                                    <Button Content="✕" Width="22" Height="22" FontSize="10" Padding="0"
+                                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0"
+                                            Style="{DynamicResource GhostButton}" Click="CloseSidebar2_Click"/>
+                                </Grid>
+                                <TextBlock Grid.Row="1" Text="{Binding SidebarAd2.Title, FallbackValue='Reklama'}"
+                                           FontFamily="{DynamicResource Font.BodySemiBold}" TextTrimming="CharacterEllipsis"
+                                           TextWrapping="Wrap" MaxHeight="36" Margin="12,8,12,0"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                                <TextBlock Grid.Row="2" Text="{Binding SidebarAd2.Description, FallbackValue=''}" FontSize="11"
+                                           TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="28" Margin="12,2,12,0"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}" Opacity="0.8"/>
+                                <TextBlock Grid.Row="3" Text="{Binding SidebarAd2.Advertiser, FallbackValue=''}" FontSize="10"
+                                           Opacity="0.6" Margin="12,0,12,8"
+                                           Foreground="{DynamicResource Brush.Ad.BannerText}"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

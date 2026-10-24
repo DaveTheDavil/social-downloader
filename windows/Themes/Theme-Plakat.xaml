@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MOTYW #4 PLAKAT — drugi podstawowy (jasny, kremowy papier)
+         krem #f2ead9 / karta #fffaf0 / tusz #1c140c / czerwień #b31217
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <SolidColorBrush x:Key="Brush.Window.Background" Color="#FFF2EAD9"/>
+    <SolidColorBrush x:Key="Brush.Panel.Background" Color="#FFFFFAF0"/>
+    <SolidColorBrush x:Key="Brush.Panel.Border" Color="#FFE3D7C2"/>
+
+    <SolidColorBrush x:Key="Brush.Input.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Brush.Input.Border" Color="#FFCBBFA8"/>
+
+    <SolidColorBrush x:Key="Brush.Text" Color="#FF1C140C"/>
+    <SolidColorBrush x:Key="Brush.TextDim" Color="#FF6B5F4E"/>
+    <SolidColorBrush x:Key="Brush.TextMuted" Color="#FF978B76"/>
+
+    <SolidColorBrush x:Key="Brush.Heading" Color="#FF1C140C"/>
+    <SolidColorBrush x:Key="Brush.Accent" Color="#FFB31217"/>
+    <SolidColorBrush x:Key="Brush.AccentBright" Color="#FFD81F28"/>
+    <SolidColorBrush x:Key="Brush.TextOnAccent" Color="#FFFFF7EE"/>
+    <SolidColorBrush x:Key="Brush.Button.Hover" Color="#FFF1E6D2"/>
+
+    <SolidColorBrush x:Key="Brush.Error" Color="#FFB31217"/>
+    <SolidColorBrush x:Key="Brush.Ok" Color="#FF1A7F37"/>
+    <SolidColorBrush x:Key="Brush.Warn" Color="#FF8A6D3B"/>
+
+    <!-- Baner reklamowy: ŻÓŁTY kontrakt — stały we wszystkich motywach -->
+    <SolidColorBrush x:Key="Brush.Ad.BannerBackground" Color="#FFFFF9E6"/>
+    <SolidColorBrush x:Key="Brush.Ad.BannerBorder" Color="#FFFFD700"/>
+    <SolidColorBrush x:Key="Brush.Ad.BannerText" Color="#FF26200E"/>
+
+    <SolidColorBrush x:Key="Brush.List.Selection" Color="#FFF3E2DA"/>
+
+    <SolidColorBrush x:Key="Brush.StatusBar.Background" Color="#FFECE1CD"/>
+    <SolidColorBrush x:Key="Brush.StatusBar.Border" Color="#FFE3D7C2"/>
+
+</ResourceDictionary>
