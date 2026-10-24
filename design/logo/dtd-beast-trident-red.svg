@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <!-- DaveTheDavil — Bestia trójzębna · RED (na jasnym tle PLAKAT / promocje) -->
+  <g fill="none" stroke="#b31217" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 18 L216 120 L120 222 L24 120 Z" opacity=".9"/>
+    <path d="M76 104 L96 92 M76 104 L70 118"/>
+    <path d="M164 104 L144 92 M164 104 L170 118"/>
+    <path d="M104 98 L98 44 M142 98 L148 44"/>
+    <path d="M104 98 L92 84 M142 98 L152 84" opacity=".7"/>
+    <path d="M86 122 L120 190 L154 122"/>
+    <path d="M84 132 L98 140 M156 132 L142 140"/>
+    <path d="M90 150 L104 160 M150 150 L136 160"/>
+    <path d="M110 144 L120 158 L130 144"/>
+    <path d="M90 116 L112 104 L118 116"/>
+    <path d="M150 116 L128 104 L122 116"/>
+  </g>
+  <g fill="none" stroke="#d81f28" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 190 L120 92"/>
+    <path d="M104 92 L136 92"/>
+    <path d="M104 92 L104 52"/>
+    <path d="M136 92 L136 52"/>
+    <path d="M120 92 L120 34"/>
+    <path d="M100 56 L104 48 L108 56"/>
+    <path d="M132 56 L136 48 L140 56"/>
+    <path d="M116 40 L120 30 L124 40"/>
+  </g>
+  <g fill="#b31217">
+    <circle cx="120" cy="18" r="2.4"/><circle cx="216" cy="120" r="2.4"/>
+    <circle cx="24" cy="120" r="2.4"/><circle cx="120" cy="222" r="2.4"/>
+    <circle cx="120" cy="190" r="2.2"/>
+  </g>
+  <g fill="#d81f28">
+    <circle cx="104" cy="92" r="2"/><circle cx="136" cy="92" r="2"/>
+    <circle cx="120" cy="92" r="2.2"/>
+  </g>
+</svg>

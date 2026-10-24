@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Media Downloader — 6 propozycji oprawy · DaveTheDavil brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Bebas+Neue&family=Cascadia+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ====== PŁYTA PROJEKTOWA ====== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050506;color:#d8d6d2;font-family:'Poppins',sans-serif;padding:34px 20px 70px}
+.board{max-width:1660px;margin:0 auto}
+a{color:#ff3b4e}
+
+/* nagłówek płyty */
+.bhead{display:flex;gap:26px;align-items:center;margin-bottom:26px}
+.bhead img.logo-big{height:92px;filter:drop-shadow(0 0 14px rgba(226,23,44,.25))}
+.bhead h1{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:3px;color:#fff;line-height:1}
+.bhead h1 small{display:block;font-family:'Poppins',sans-serif;font-size:13px;letter-spacing:2px;color:#8a8580;font-weight:300;margin-top:6px;text-transform:uppercase}
+.kitline{font-size:12.5px;color:#8a8580;margin-top:10px}
+.kitline b{color:#cfccc8;font-weight:500}
+
+/* palety */
+.pal-wrap{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 40px}
+.pal{background:#101013;border:1px solid #232327;border-radius:10px;padding:12px 14px;min-width:330px}
+.pal h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9a958f;margin-bottom:9px}
+.sw{display:flex;gap:7px;margin-bottom:7px}
+.chip{height:22px;width:44px;border-radius:5px;border:1px solid rgba(255,255,255,.08);position:relative;margin-bottom:14px}
+.chip span{position:absolute;left:0;right:0;bottom:-14px;font-size:8.5px;color:#7d7873;text-align:center;letter-spacing:.3px}
+
+/* siatka projektów */
+.board-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(760px,1fr));gap:44px 38px}
+.lay h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#fff;margin-bottom:2px}
+.lay h2 .tag{font-family:'Poppins';font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;background:#1b1b20;border:1px solid #2c2c33;color:#a39d96;border-radius:20px;padding:3px 10px;vertical-align:middle;margin-left:10px}
+.lay .sub{font-size:12px;color:#8a8580;margin-bottom:12px}
+.frame{border-radius:12px;overflow:hidden;border:1px solid #232327;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.notes{margin-top:12px;font-size:12.5px;color:#a39d96;line-height:1.55;padding-left:0;list-style:none}
+.notes b{color:#dcd8d3;font-weight:500}
+.notes li{padding-left:18px;position:relative;margin-bottom:5px}
+.notes li::before{content:"♠";color:#e2172c;position:absolute;left:0;font-size:10px}
+
+/* ============ WSPÓLNE OKNO APLIKACJI (mockup WPF) ============ */
+.app{width:100%;aspect-ratio:760/520;position:relative;overflow:hidden;font-family:'Poppins',sans-serif;font-size:12px}
+/* pasek okna Windows */
+.tbar{height:34px;display:flex;align-items:center;gap:9px;padding:0 12px;flex:none}
+.tbar .tb-logo{height:20px}
+.tbar .ttl{font-size:11.5px;font-weight:500;opacity:.9}
+.tbar .win{margin-left:auto;display:flex;gap:16px;color:#8a8580;font-size:11px}
+.tbar .win i{font-style:normal}
+/* disclaimer */
+.disc{font-size:9.3px;line-height:1.35;padding:6px 14px;flex:none}
+/* komponenty */
+.urlbox{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px}
+.urlfield{flex:1;font-size:11.5px;opacity:.75;white-space:nowrap;overflow:hidden}
+.btn{border-radius:6px;padding:8px 16px;font-size:11px;font-weight:600;letter-spacing:.4px;white-space:nowrap;text-align:center}
+.btn.small{padding:6px 11px;font-size:10px}
+.card{border-radius:10px;padding:11px 13px}
+.qsel{display:inline-flex;align-items:center;gap:8px;border-radius:7px;padding:5px 10px;font-size:10.5px;font-weight:600}
+.badge-y{background:#d8a70f;color:#1a1400;font-size:9.2px;font-weight:700;letter-spacing:.6px;padding:2px 8px;border-radius:4px;text-transform:uppercase}
+.gdot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.entries{display:flex;flex-direction:column;gap:6px}
+.ent{display:flex;align-items:center;gap:9px;border-radius:8px;padding:7px 10px}
+.cbx{width:13px;height:13px;border:1.5px solid #e2102c;border-radius:3px;background:#e2102c;color:#fff;font-size:9px;line-height:12px;text-align:center;flex:none}
+.cbx.off{background:transparent;border-color:#4c4c55;color:transparent}
+.ent .nm{flex:1;font-size:11px;white-space:nowrap;overflow:hidden}
+.ent .mt{font-size:9.4px;opacity:.6;white-space:nowrap}
+.pbar{height:5px;border-radius:3px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+.pbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent,#e2102c),var(--accent2,#ff2d47));border-radius:3px}
+.statusbar{height:26px;display:flex;align-items:center;gap:14px;padding:0 14px;font-size:9.6px;flex:none}
+.stack{display:flex;flex-direction:column;height:calc(100% - 34px)}
+.h13{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px}
+.row{display:flex;gap:10px;align-items:center}
+
+/* ============ 1 · SPADE — Konsola Spada ============ */
+#l1 .app{background:linear-gradient(180deg,#141416,#0b0b0d 30%)}
+#l1 .tbar{background:#0b0b0d;border-bottom:1px solid #2a2a30}
+#l1 .disc{background:#0d0d10;border-bottom:1px solid #1e1e22;color:#7d7873}
+#l1 .wrap{padding:16px 18px;display:flex;flex-direction:column;gap:11px;flex:1;overflow:hidden}
+#l1 .urlbox{background:#18181b;border:1px solid #2a2a30}
+#l1 .btn-main{background:linear-gradient(135deg,#e0112c,#ff2d47);color:#fff;box-shadow:0 6px 18px rgba(224,17,44,.28)}
+#l1 .btn-ghost{border:1px solid #2a2a30;color:#9a958f;background:#141416}
+#l1 .card{background:#18181b;border:1px solid #2a2a30;border-left:3px solid #e0112c}
+#l1 .qsel{background:#1e1e22;border:1px solid #2a2a30;color:#dcd8d3}
+#l1 .ent{background:#18181b;border:1px solid #232327}
+#l1 .cta{padding:10px;font-size:12.5px}
+#l1 .ad{background:rgba(245,196,0,.8);color:#241d00;border-radius:8px;padding:6px 11px;font-size:9.6px}
+#l1 .ad b{font-size:10.5px}
+#l1 .spade-wm{position:absolute;right:-14px;bottom:-46px;font-size:170px;color:rgba(224,17,44,.05);font-family:'Bebas Neue';pointer-events:none}
+#l1 .statusbar{background:#0e0e11;border-top:1px solid #1e1e22;color:#8a8580}
+
+/* ============ 2 · TRIDENT — Creator Hub ============ */
+#l2 .app{background:#000;display:flex;flex-direction:column}
+#l2 .tbar{background:#0d0d0d;border-bottom:1px solid #262626}
+#l2 .tabs{display:flex;gap:26px;align-items:center;background:#0d0d0d;padding:0 18px;border-bottom:1px solid #262626;height:40px;flex:none}
+#l2 .tab{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#7d7873;padding:4px 0}
+#l2 .tab.on{color:#fff;border-bottom:2px solid #e2172c}
+#l2 .tabs .sp{margin-left:auto;color:#e2172c;font-size:15px}
+#l2 .hero{background:#0d0d0d url('assets/logo-poster.jpg') center/460px no-repeat;border-bottom:1px solid #262626;flex:none;position:relative;display:flex;align-items:center}
+#l2 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.92) 70%)}
+#l2 .hero .in{position:relative;padding:14px 18px;z-index:1}
+#l2 .hero h3{font-family:'Bebas Neue';font-size:30px;letter-spacing:2px;color:#fff}
+#l2 .hero .sw2{font-size:10px;letter-spacing:1px;color:#a39d96;text-transform:uppercase}
+#l2 .hero .words{position:relative;margin-left:auto;padding-right:18px;z-index:1;text-align:right;font-family:'Bebas Neue';font-size:15px;letter-spacing:3px;color:#5c5c64;line-height:1.5}
+#l2 .hero .words .hl{color:#ff3b4e}
+#l2 .wrap{padding:14px 18px;display:grid;grid-template-columns:1.05fr 1fr;gap:14px;flex:1;overflow:hidden}
+#l2 .urlbox{background:#141414;border:1px solid #262626}
+#l2 .btn-main{background:#e2172c;color:#fff;border-radius:4px;text-transform:uppercase;letter-spacing:1px;font-size:10.5px;padding:8px 22px}
+#l2 .card{background:#141414;border:1px solid #262626}
+#l2 .qsel{background:#191919;border:1px solid #262626;color:#eaeaec}
+#l2 .ent{background:#141414;border:1px solid #262626}
+#l2 .statusbar{background:#0d0d0d;border-top:1px solid #262626;color:#7d7873}
+#l2 .disc{color:#6f6a66;border-bottom:1px solid #191919;background:#0a0a0a}
+
+/* ============ 3 · NEON — Terminal ============ */
+#l3 .app{background:radial-gradient(120% 90% at 70% -10%,#1c1436 0%,#0a0715 55%)}
+#l3 .app::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);pointer-events:none;z-index:2}
+#l3 .tbar{background:rgba(10,7,21,.9);border-bottom:1px solid #241a44}
+#l3 .disc{background:#0d0818;color:#6f6a80;border-bottom:1px solid #221a41}
+#l3 .wrap{padding:15px 17px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:hidden;position:relative}
+#l3 .urlbox{background:#160f2a;border:1px solid #2b2050;box-shadow:0 0 22px rgba(255,46,109,.13) inset}
+#l3 .urlfield{font-family:'Cascadia Mono',Consolas,monospace;font-size:10.6px}
+#l3 .btn-main{background:#ff2e6d;color:#fff;box-shadow:0 0 0 1px rgba(255,46,109,.35),0 8px 26px rgba(255,46,109,.4)}
+#l3 .btn-ghost{border:1px solid #00e5ff;color:#5eead4;background:rgba(0,229,255,.05)}
+#l3 .card{background:#160f2a;border:1px solid #2b2050;box-shadow:0 0 26px rgba(255,46,109,.08)}
+#l3 .eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#ff5f8f;text-shadow:0 0 12px rgba(224,17,44,.4)}
+#l3 .qsel{background:#1c1436;border:1px solid #2b2050;color:#e6defa}
+#l3 .ent{background:#160f2a;border:1px solid #2b2050}
+#l3 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0}
+#l3 .panel-t{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#9a92b8;margin:2px 0 7px;font-family:'Cascadia Mono',Consolas,monospace}
+#l3 .term{font-family:'Cascadia Mono',Consolas,monospace;font-size:9.6px;color:#5eead4;line-height:1.5}
+#l3 .ad{background:rgba(245,196,0,.85);color:#221a00;border-radius:5px;padding:5px 10px;font-size:9.4px}
+#l3 .statusbar{background:#0d0818;border-top:1px solid #241a44;color:#9a92b8;font-family:'Cascadia Mono',Consolas,monospace;font-size:9.4px}
+#l3 .cta2{display:flex;gap:9px;margin-top:9px}
+
+/* ============ 4 · PLAKAT — jasna ============ */
+#l4 .app{background:#f2ead9;color:#211a12}
+#l4 .tbar{background:#fffaf0;border-bottom:2px solid #1c140c}
+#l4 .tbar .ttl{color:#211a12}
+#l4 .tbar .win{color:#6b5f4e}
+#l4 .disc{background:#ece0c8;color:#6b5f4e;border-bottom:2px solid #1c140c}
+#l4 .wrap{padding:16px 20px;display:flex;flex-direction:column;gap:12px;flex:1;overflow:hidden}
+#l4 .ph{font-family:'Bebas Neue';font-size:40px;letter-spacing:2px;color:#211a12;line-height:.95}
+#l4 .ph span{color:#b31217}
+#l4 .ph-rule{height:4px;width:130px;background:#b31217;border-radius:2px}
+#l4 .urlbox{background:#fffaf0;border:2px solid #1c140c;border-radius:4px}
+#l4 .urlfield{opacity:.85}
+#l4 .btn-main{background:#b31217;color:#fffaf0;border:2px solid #1c140c;border-radius:3px;text-transform:uppercase;letter-spacing:.6px}
+#l4 .btn-ghost{background:transparent;border:2px solid #1c140c;color:#1c140c;border-radius:3px;text-transform:uppercase}
+#l4 .card{background:#fffaf0;border:2px solid #1c140c;border-radius:5px}
+#l4 .qsel{background:#fffaf0;border:2px solid #1c140c;color:#211a12;border-radius:3px}
+#l4 .ent{background:#fffaf0;border:1.5px solid #1c140c;border-radius:4px}
+#l4 .cbx{border:1.5px solid #1c140c;background:#b31217}
+#l4 .cbx.off{background:transparent;border-color:#8f7f66}
+#l4 .pbar{background:#e5d8b8}
+#l4 .pbar i{background:#b31217}
+#l4 .ad{background:#fffaf0;border:2px dashed #b31217;color:#211a12;border-radius:4px;padding:5px 10px;font-size:9.5px}
+#l4 .statusbar{background:#ece0c8;border-top:2px solid #1c140c;color:#6b5f4e}
+
+/* ============ 5 · MAGENTA — Aura Sigillum ============ */
+#l5 .app{background:#0a0716}
+#l5 .bgim{position:absolute;inset:0;background:url('assets/logo-poster.jpg') center/cover;opacity:.5;filter:saturate(1.15)}
+#l5 .bgov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,7,22,.55),rgba(16,8,32,.9) 60%,rgba(8,5,18,.95))}
+#l5 .wm{position:absolute;left:-30px;bottom:-46px;width:300px;opacity:.15;pointer-events:none}
+#l5 .tbar{position:relative;background:rgba(8,5,18,.6);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+#l5 .disc{position:relative;background:rgba(8,5,18,.5);color:#a9a2bd;border-bottom:1px solid rgba(255,255,255,.06)}
+#l5 .wrap{position:relative;padding:15px 18px;display:flex;flex-direction:column;gap:11px;flex:1;overflow:hidden}
+#l5 .glass{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.10);border-radius:14px}
+#l5 .urlbox{box-shadow:0 10px 40px rgba(0,0,0,.35)}
+#l5 .btn-main{background:linear-gradient(135deg,#ff2e6d,#b31217);color:#fff;box-shadow:0 10px 30px rgba(255,46,109,.35)}
+#l5 .chip{background:rgba(255,46,109,.16);border:1px solid rgba(255,46,109,.4);color:#ffb7c9;border-radius:20px;padding:2px 10px;font-size:9.4px}
+#l5 .ent{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+#l5 .ad{background:rgba(245,196,0,.82);color:#241d00;border-radius:9px;padding:5px 11px;font-size:9.5px}
+#l5 .statusbar{background:rgba(8,5,18,.65);border-top:1px solid rgba(255,255,255,.07);color:#a9a2bd}
+
+/* ============ 6 · OPS COMPACT ============ */
+#l6 .app{background:#101013;display:flex;flex-direction:column;font-size:11.5px}
+#l6 .tbar{background:#0b0b0e;border-bottom:1px solid #26262c;height:30px}
+#l6 .menustrip{display:flex;gap:16px;background:#101013;border-bottom:1px solid #1d1d23;padding:4px 12px;font-size:10.3px;color:#9a958f;flex:none}
+#l6 .disc{background:#0e0e12;color:#6f6a72;border-bottom:1px solid #1d1d23}
+#l6 .cols{display:grid;grid-template-columns:47% 53%;gap:0;flex:1;min-height:0}
+#l6 .pane{padding:10px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+#l6 .pane.left{border-right:1px solid #1d1d23}
+#l6 .pane-t{font-size:9.4px;letter-spacing:2px;text-transform:uppercase;color:#e2172c;font-weight:600;margin-bottom:2px}
+#l6 .urlbox{background:#17171c;border:1px solid #26262c;padding:7px 10px}
+#l6 .btn-main{background:#e2102c;color:#fff;padding:6px 13px;font-size:10.2px}
+#l6 .btn-ghost{border:1px solid #26262c;color:#9a958f;background:#17171c}
+#l6 .card{background:#17171c;border:1px solid #26262c;border-radius:7px;padding:8px 10px}
+#l6 .qsel{background:#1d1d23;border:1px solid #26262c;color:#dcd8d3;font-size:9.8px;padding:4px 8px}
+#l6 .ent{background:#17171c;border:1px solid #222228;padding:5px 9px}
+#l6 .ent .nm{font-size:10.3px}
+#l6 .pbar{height:4px;flex:0 0 70px}
+#l6 .minsched{font-family:'Cascadia Mono',Consolas,monospace;font-size:8.9px;color:#6f6a72;margin-top:auto;background:#0c0c10;border:1px solid #1a1a20;border-radius:6px;padding:7px 9px;white-space:pre;line-height:1.45}
+#l6 .dock{background:#0b0b0e;border-top:1px solid #222228;display:flex;align-items:center;gap:12px;padding:7px 12px;font-size:10px;color:#8a8580;flex:none}
+#l6 .sess{background:#17171c;border:1px solid #26262c;border-radius:7px;padding:5px 10px;font-size:9.6px}
+#l6 .statusbar{background:#0e0e12;border-top:1px solid #1d1d23;color:#7d7873}
+
+/* stopka płyty */
+.board-foot{margin-top:46px;background:#101013;border:1px solid #232327;border-radius:12px;padding:22px 26px;font-size:13px;color:#a39d96;line-height:1.7}
+.board-foot b{color:#fff}
+.board-foot .rule{height:3px;width:120px;background:#e2172c;border-radius:2px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ============ NAGŁÓWEK PŁYTY ============ -->
+  <header class="bhead">
+    <img class="logo-big" src="assets/logo-full-360.png" alt="DaveTheDavil">
+    <div>
+      <h1>SOCIAL MEDIA DOWNLOADER<small>6 propozycji oprawy graficznej · na bazie brandu DaveTheDavil</small></h1>
+      <div class="kitline">Fonty z portalu: <b>Poppins</b> (UI) + <b>Bebas Neue</b> (display) · Symbole brandowe: <b>♠</b> i <b>ψ</b> · Emblemat: srebrny, geometryczny «bestia w rombie» · Palety: prosto z Twoich skórek portalu (spade / trident / neon / plakat) + magenta z <b>logo-poster.jpg</b></div>
+    </div>
+  </header>
+
+  <!-- ============ PALETY ============ -->
+  <div class="pal-wrap">
+    <div class="pal"><h4>♠ SPADE — domyślna</h4>
+      <div class="sw"><div class="chip" style="background:#0b0b0d"><span>bg 0b0b0d</span></div><div class="chip" style="background:#18181b"><span>card 18181b</span></div><div class="chip" style="background:#e0112c"><span>accent e0112c</span></div><div class="chip" style="background:#ff2d47"><span>acc2 ff2d47</span></div><div class="chip" style="background:#2a2a30"><span>border 2a2a30</span></div></div>
+    </div>
+    <div class="pal"><h4>ψ TRIDENT — Creator Hub (aktywna)</h4>
+      <div class="sw"><div class="chip" style="background:#000000"><span>bg 000000</span></div><div class="chip" style="background:#141414"><span>card 141414</span></div><div class="chip" style="background:#e2172c"><span>accent e2172c</span></div><div class="chip" style="background:#ff3b4e"><span>acc2 ff3b4e</span></div><div class="chip" style="background:#262626"><span>border 262626</span></div></div>
+    </div>
+    <div class="pal"><h4>⚡ NEON — nocna</h4>
+      <div class="sw"><div class="chip" style="background:#0a0715"><span>bg 0a0715</span></div><div class="chip" style="background:#160f2a"><span>card 160f2a</span></div><div class="chip" style="background:#ff2e6d"><span>accent ff2e6d</span></div><div class="chip" style="background:#00e5ff"><span>cyan 00e5ff</span></div><div class="chip" style="background:#2b2050"><span>border 2b2050</span></div></div>
+    </div>
+    <div class="pal"><h4>🎬 PLAKAT — jasna</h4>
+      <div class="sw"><div class="chip" style="background:#f2ead9"><span>bg f2ead9</span></div><div class="chip" style="background:#fffaf0"><span>card fffaf0</span></div><div class="chip" style="background:#b31217"><span>accent b31217</span></div><div class="chip" style="background:#1c140c"><span>ink 1c140c</span></div><div class="chip" style="background:#d9c9a3"><span>border d9c9a3</span></div></div>
+    </div>
+  </div>
+
+  <!-- ============ 6 PROJEKTÓW ============ -->
+  <div class="board-grid">
+
+    <!-- ================= 1 · SPADE ================= -->
+    <section class="lay" id="l1">
+      <h2>#1 — KONSOLA SPADA <span class="tag">kandydat — odłożony</span></h2>
+      <div class="sub">Ewolucja obecnego okna: ta sama pionowa logika, tylko ubrana w brand — sygnet ♠, czerwień akcentująca, kartowanie na kolumnach.</div>
+      <div class="frame"><div class="app">
+        <div class="tbar"><img class="tb-logo" src="assets/logo-emblem-96.png"><span class="ttl">Social Media Downloader — Pobieraj</span><span class="win"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="disc">⚠ Aplikacja służy do pobierania wyłącznie treści, na które masz prawa lub które są w domenie publicznej. Użytkownik ponosi pełną odpowiedzialność za przestrzeganie regulaminów platform i praw autorskich.</div>
+          <div class="wrap">
+            <div class="row"><div>
+              <div class="h13" style="font-size:19px;color:#fff">POBIERAJ</div>
+              <div style="font-size:10px;color:#7d7873;letter-spacing:1px">YOUTUBE · INSTAGRAM · TIKTOK · FACEBOOK</div>
+            </div><span style="margin-left:auto;font-size:10px;color:#8a8580"><span class="gdot" style="background:#38e07b"></span> silnik · 127.0.0.1:8765</span></div>
+            <div class="urlbox"><span style="color:#e0112c;font-weight:700">🔗</span><span class="urlfield">https://www.instagram.com/p/DexBwdADpTo/</span><span class="btn btn-main">ANALIZUJ</span></div>
+            <div class="card">
+              <div style="display:flex;gap:10px;align-items:center;margin-bottom:6px"><span style="font-weight:600;color:#fff">Kosmiczna sesja — seria 6 elementów</span><span style="font-size:9.4px;background:#1e1e22;border-radius:12px;padding:2px 9px;color:#9a958f">IG · @davethedavill</span></div>
+              <div style="display:flex;gap:14px;font-size:10.4px;color:#9a958f"><span>1080×1350</span><span>obraz + wideo</span><span style="margin-left:auto">Premium: <b style="color:#8a8580">Nie</b></span></div>
+            </div>
+            <div class="row"><span class="qsel">Jakość: 1080p ▾</span><span style="font-size:10px;color:#8a8580">1080 / 720 / 480</span></div>
+            <div class="entries">
+              <div class="ent"><span class="cbx">✓</span><span class="nm">1 · Zdjęcie — wejście w studni</span><span class="mt">obraz (seria IG) · 1080p</span></div>
+              <div class="ent"><span class="cbx">✓</span><span class="nm">2 · Wideo — 12 s</span><span class="mt">wideo · 720p</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">3 · Zdjęcie — tło</span><span class="mt">obraz (seria IG)</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">4 · Szybki cut — 8 s</span><span class="mt">wideo</span></div>
+            </div>
+            <div class="pbar"><i style="width:38%"></i></div>
+            <div class="row"><span class="btn btn-main cta">POBIERZ ZAZNACZONE (2)</span><span class="btn btn-ghost small">PAUZA</span></div>
+            <div class="ad"><b>REKLAMA</b> · <b>GraX Studio</b> — domofony dla śmiałków · graxstudio.pl</div>
+            <div class="row"><span style="font-size:10px;color:#9a958f">♠ Sesja IG:</span><span style="font-size:10px;color:#38e07b">● zapisana (sessionid=…)</span><span class="btn btn-ghost small" style="margin-left:auto">ZAPISZ / WYCZYŚĆ</span></div>
+          </div>
+          <div class="statusbar"><span><span class="gdot" style="background:#38e07b"></span> silnik OK</span><span>HWID: win:00c4…</span><span style="margin-left:auto">v1.0.0 · tryb darmowy</span></div>
+        </div>
+        <div class="spade-wm">♠</div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Najbliższy obecnej appce</b> — wymiana stylu, nie struktury: XAML bez rewolucji, nowe kolory + font Poppins.</li>
+        <li>Sygnet „♠” w prawym dolnym rogu = TextBlock w Bebas 170px, renderer 5% opacity.</li>
+        <li>Najszybsza ścieżka: ~1 dzień roboty, zero ryzyka dla logiki.</li>
+      </ul>
+    </section>
+
+    <!-- ================= 2 · TRIDENT ================= -->
+    <section class="lay" id="l2">
+      <h2>#2 — TRIDENT HUB <span class="tag" style="background:#2a0d12;border-color:#e2172c;color:#ff5f6f">★ WYBRANY — MOTYW GŁÓWNY</span></h2>
+      <div class="sub">Klon hero z portalu: zakładki-top z rozstrzelonymi literami, mini-hero z emblematem, side-words PASJA / KREATYWNOŚĆ / WOLNOŚĆ — program rodzinny z portalem. Logo = nowe «bestia trójzębna» DUO.</div>
+      <div class="frame"><div class="app">
+        <div class="tbar"><img class="tb-logo" src="logo/dtd-beast-trident-duo.svg" style="height:24px"><span class="ttl">Social Media Downloader</span><span class="win"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="tabs"><span class="tab on">Pobieraj</span><span class="tab">Pobrania</span><span class="tab">Ustawienia</span><span class="sp">ψ</span></div>
+          <div class="hero">
+            <div class="in"><h3>SOCIAL MEDIA DOWNLOADER</h3><div class="sw2">Wideo / Zdjęcia / Serie IG</div></div>
+            <div class="words">PASJA<br>KREATYWNOŚĆ<br>WOLNOŚĆ<br><span class="hl">POBIERANIE</span></div>
+          </div>
+          <div class="disc">⚠ Aplikacja służy do pobierania wyłącznie treści, na które masz prawa lub które są w domenie publicznej…</div>
+          <div class="wrap">
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div class="urlbox"><span style="color:#ff3b4e;font-weight:700">🔗</span><span class="urlfield">https://www.instagram.com/p/DexBwdADpTo/</span></div>
+              <div class="row"><span class="btn btn-main">ANALIZUJ ▶</span><span style="font-size:9.6px;color:#7d7873"><span class="gdot" style="background:#38e07b"></span> silnik :8765</span></div>
+              <div class="card">
+                <div style="font-weight:600;color:#fff;margin-bottom:4px">Kosmiczna sesja — seria 6 elementów</div>
+                <div style="display:flex;gap:12px;font-size:10.2px;color:#9a958f"><span>1080×1350</span><span>IG · @davethedavill</span><span>Premium: Nie</span></div>
+              </div>
+              <div class="card row"><span class="qsel">1080p ▾</span><span class="badge-y">REKLAMA</span><span style="font-size:9.8px;color:#241d00;flex:1"><b>GraX Studio</b> — domofony dla śmiałków</span></div>
+              <div class="card" style="font-size:10px;color:#9a958f">♠ Sesja IG: <b style="color:#38e07b">zapisana</b> — pełne serie ostatnich publikacji</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="font-size:9.6px;letter-spacing:2px;color:#7d7873;text-transform:uppercase">Seria — wybierz wpisy <span style="color:#e2172c;font-weight:700">(2/6)</span></div>
+              <div class="ent"><span class="cbx">✓</span><span class="nm">1 · Zdjęcie</span><span class="mt">1080p</span></div>
+              <div class="ent"><span class="cbx">✓</span><span class="nm">2 · Wideo</span><span class="mt">12 s</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">3 · Zdjęcie</span><span class="mt">obraz</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">4 · Wideo</span><span class="mt">8 s</span></div>
+              <div class="pbar" style="margin-top:2px"><i style="width:62%"></i></div>
+              <div style="font-size:10px;color:#7d7873">Pobieranie 2/6 — wideo · 62% · 8,4 MB/s</div>
+              <span class="btn btn-main" style="margin-top:3px">POBIERZ ZAZNACZONE (2)</span>
+            </div>
+          </div>
+          <div class="statusbar"><span><span class="gdot" style="background:#38e07b"></span> silnik OK</span><span>⚡ sesja IG: zapisana</span><span>v1.0.0</span><span style="margin-left:auto">ψ 2026 DaveTheDavil</span></div>
+        </div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Tożsamość z portalem</b> — ten sam język co na stronie: tabs-top, ψ, rozstrzelone litery; spójny kit na stronie i w programie.</li>
+        <li>WPF: TabControl (płaski styl) + Grid 2 kolumny; mini-hero jako Border z ImageBrush (logo-poster).</li>
+        <li>Side-words „POBIERANIE” zamiast „DAVETHEDAVIL” — akcentuje funkcję programu.</li>
+      </ul>
+    </section>
+
+    <!-- ================= 3 · NEON ================= -->
+    <section class="lay" id="l3">
+      <h2>#3 — NEON TERMINAL <span class="tag">kandydat — odłożony</span></h2>
+      <div class="sub">Nocny tryb roboczy: fioletowe tło, scanlines, glow na akcjach, panel kolejki STALE obok analizatora + terminalowy status mono.</div>
+      <div class="frame"><div class="app">
+        <div class="tbar"><img class="tb-logo" src="assets/logo-emblem-96.png"><span class="ttl">Social Media Downloader — nocny</span><span class="win"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="disc">⚠ Pobieranie wyłącznie treści, na które masz prawa lub które są w domenie publicznej…</div>
+          <div class="wrap">
+            <div class="urlbox"><span class="urlfield">instagram.com/p/DexBwdADpTo/</span><span class="btn btn-main">ANALIZUJ</span></div>
+            <div class="grid2">
+              <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
+                <div class="panel-t">:: analiza</div>
+                <div class="card"><div class="eyebrow">IG · SERIA · @davethedavill</div>
+                  <div style="font-weight:600;color:#fff;margin:3px 0 5px">Kosmiczna sesja</div>
+                  <div style="font-size:9.8px;color:#9a92b8">1080×1350 · 6 elementów · premium: OFF</div>
+                  <div style="margin-top:7px"><span class="qsel">MAX 1080p ▾</span></div>
+                </div>
+                <div class="card row"><span class="badge-y">REKLAMA</span><span style="font-size:9.6px;color:#221a00;flex:1"><b>GraX Studio</b> — domofony</span></div>
+                <div class="card term">
+                  <div>[engine] 127.0.0.1:8765 <span style="color:#38e07b">● OK</span></div>
+                  <div>[session] ig-cookie <span style="color:#38e07b">● zapisana</span></div>
+                  <div>[licen] premium: OFF · HWID win:00c4…</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;min-height:0">
+                <div class="panel-t">:: kolejka — 2/6 wybrano</div>
+                <div class="ent"><span class="cbx" style="background:#ff2e6d;border-color:#ff2e6d">✓</span><span class="nm">1 · Zdjęcie</span><span class="mt">✓ zapisano</span></div>
+                <div class="ent"><span class="cbx" style="background:#ff2e6d;border-color:#ff2e6d">✓</span><span class="nm">2 · Wideo</span><span style="font-size:9px;color:#5eead4;margin-left:auto">64%</span></div>
+                <div class="ent"><span class="cbx off">✓</span><span class="nm">3 · Zdjęcie</span><span class="mt">w kolejce</span></div>
+                <div class="ent"><span class="cbx off">✓</span><span class="nm">4 · Wideo</span><span class="mt">w kolejce</span></div>
+                <div class="pbar" style="margin-top:5px"><i style="width:64%;background:linear-gradient(90deg,#ff2e6d,#ff5f8f)"></i></div>
+                <div class="cta2"><span class="btn btn-main">POBIERZ (2)</span><span class="btn btn-ghost">PAUZA</span><span class="btn btn-ghost">STOP</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="statusbar"><span>[● engine OK]</span><span>[dl: 8,4 MB/s]</span><span>[premium: OFF]</span><span style="margin-left:auto">[v1.0.0]</span></div>
+        </div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Vibe „nocnej zmiany”</b> — skórka Neon jak na portalu: scanlines (repeating-gradient; w WPF tanio jako tło brush), glow = DropShadowEffect.</li>
+        <li>Kolejka widoczna STALE obok analizy — najlepszy layout pod seryjne batche IG.</li>
+        <li>Cyan (#00e5ff) tylko na ghostach i tekście mono — „czerwono-turkusowa poświata” dokładnie jak w opisie skórki.</li>
+      </ul>
+    </section>
+
+    <!-- ================= 4 · PLAKAT ================= -->
+    <section class="lay" id="l4">
+      <h2>#4 — PLAKAT (light) <span class="tag" style="background:#2a1f0e;border-color:#b31217;color:#ffb4a2">★ WYBRANY — MOTYW 2 · JASNY</span></h2>
+      <div class="sub">Polska Szkoła Plakatu: kremowy papier, gruby czarny obrys, kreska czerwona, wielka typografia — ta sama appka w wersji „dziennej”.</div>
+      <div class="frame"><div class="app">
+        <div class="tbar"><img class="tb-logo" src="logo/dtd-beast-trident-red.svg" style="height:22px"><span class="ttl">Social Media Downloader</span><span class="win"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="disc">⚠ Pobieranie wyłącznie treści, na które masz prawa lub które są w domenie publicznej…</div>
+          <div class="wrap">
+            <div class="ph">SOCIAL MEDIA<br>DOWN<span>LOADER</span></div>
+            <div class="ph-rule"></div>
+            <div class="urlbox"><span style="font-weight:700;color:#b31217">/pobierz</span><span class="urlfield">instagram.com/p/DexBwdADpTo/</span><span class="btn btn-main">ANALIZUJ</span></div>
+            <div class="card">
+              <div class="row"><div><div style="font-weight:700">Kosmiczna sesja</div><div style="font-size:10px;color:#6b5f4e">seria IG · 6 elementów · @davethedavill</div></div>
+              <span class="qsel" style="margin-left:auto">1080p ▾</span></div>
+            </div>
+            <div class="entries">
+              <div class="ent"><span class="cbx">✓</span><span class="nm">1 · Zdjęcie</span><span class="mt">1080×1350</span></div>
+              <div class="ent"><span class="cbx">✓</span><span class="nm">2 · Wideo</span><span class="mt">12 s</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">3 · Tło</span><span class="mt">obraz</span></div>
+            </div>
+            <div class="pbar"><i style="width:48%"></i></div>
+            <div class="row"><span class="btn btn-main">POBIERZ 2/6</span><span class="btn btn-ghost">PAUZA</span><span style="font-size:10.5px;color:#6b5f4e">Pobieranie 48% — 8,4 MB/s</span></div>
+            <div class="ad"><span class="badge-y">REKLAMA</span> · <b>GraX Studio</b> — domofony dla śmiałków · graxstudio.pl</div>
+          </div>
+          <div class="statusbar"><span>● silnik OK</span><span>♠ sesja IG: zapisana</span><span style="margin-left:auto">v1.0.0 · PLAKAT</span></div>
+        </div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Light mode jako opcjonalny motyw</b> — WPF: drugi ResourceDictionary (dokładnie jak skórki portalu; przełącznik w Ustawieniach).</li>
+        <li>Gruby 2px obrys wszędzie + Bebas Neue 40px; zero gradientów, maksimum plakatowego snu.</li>
+        <li>Najbardziej odróżnia się od typowej „chmureczki” downloaderów — mocny wyróżnik wizualny.</li>
+      </ul>
+    </section>
+
+    <!-- ================= 5 · MAGENTA ================= -->
+    <section class="lay" id="l5">
+      <h2>#5 — AURA SIGILLUM <span class="tag">kandydat — odłożony (marketing)</span></h2>
+      <div class="sub">Wersja „na pokaz”: tło = Twój plakat intro (magenta-purple bokeh), szkła z rozmyciem, emblemat-woda, różowa poświata — najmocniejsza na screenach marketingowych.</div>
+      <div class="frame"><div class="app">
+        <div class="bgim"></div><div class="bgov"></div>
+        <img class="wm" src="assets/logo-emblem-160.png">
+        <div class="tbar"><img class="tb-logo" src="assets/logo-emblem-96.png"><span class="ttl" style="color:#f2eaff">Social Media Downloader</span><span class="win" style="color:#a9a2bd"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="disc">⚠ Pobieranie wyłącznie treści, na które masz prawa lub które są w domenie publicznej…</div>
+          <div class="wrap">
+            <div class="urlbox glass"><span style="color:#ff2e6d;font-weight:700">🔗</span><span class="urlfield" style="color:#e9e2f6;opacity:.9">https://www.instagram.com/p/DexBwdADpTo/</span><span class="btn btn-main">ANALIZUJ</span></div>
+            <div class="card glass">
+              <div class="row" style="margin-bottom:5px"><span style="font-weight:600;color:#fff">Kosmiczna sesja</span><span class="chip">IG · SERIA</span><span style="margin-left:auto;font-size:9.6px;color:#cf9fe6">Premium: nie</span></div>
+              <div style="display:flex;gap:12px;font-size:10px;color:#cf9fe6"><span>1080×1350</span><span>6 elementów</span><span>obraz + wideo</span></div>
+            </div>
+            <div class="row"><span class="qsel glass">MAX 1080p ▾</span><span style="font-size:10px;color:#a9a2bd"><span style="color:#5eef8f">●</span> silnik :8765 odpowiedział</span></div>
+            <div class="entries">
+              <div class="ent"><span class="cbx" style="background:#ff2e6d;border-color:#ff2e6d">✓</span><span class="nm" style="color:#f2eaff">1 · Zdjęcie</span><span class="mt">1080p</span></div>
+              <div class="ent"><span class="cbx" style="background:#ff2e6d;border-color:#ff2e6d">✓</span><span class="nm" style="color:#f2eaff">2 · Wideo</span><span class="mt">12 s</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm" style="color:#f2eaff">3 · Tło</span><span class="mt">obraz</span></div>
+            </div>
+            <div class="pbar"><i style="width:71%;background:linear-gradient(90deg,#ff2e6d,#b31217)"></i></div>
+            <div class="row"><span class="btn btn-main">POBIERZ ZAZNACZONE (2)</span><span style="font-size:10px;color:#a9a2bd">71% — 2/6</span></div>
+            <div class="ad" style="align-self:flex-start"><b>REKLAMA</b> · GraX Studio — domofony dla śmiałków</div>
+          </div>
+          <div class="statusbar"><span><span class="gdot" style="background:#5eef8f"></span> silnik OK</span><span>HWID win:00c4…</span><span style="margin-left:auto">v1.0.0</span></div>
+        </div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Tło = Twój plakat</b> (logo-poster.jpg): Border.Background + ImageBrush z przyciemnieniem; watermark = obrazek 15% opacity.</li>
+        <li>Glass w WPF: brak natywnego backdrop-blur → „fałszywe szkło” = półprzezroczyste tło + jasny border 1px (na ciemnym tle działa wiarygodnie).</li>
+        <li>Zakres użycia: ekran powitalny, strona premium / marketing — jako tryb pracy mniej praktyczny.</li>
+      </ul>
+    </section>
+
+    <!-- ================= 6 · OPS COMPACT ================= -->
+    <section class="lay" id="l6">
+      <h2>#6 — OPS COMPACT <span class="tag" style="background:#1c1220;border-color:#9b59b6;color:#d7aef5">PREMIUM ONLY — odblokowuje 1× licencja</span></h2>
+      <div class="sub">Dla power-usera: menu-strip, lewy panel = analizator, prawy = kolejka + log, sesja IG w dolnym docku — wszystko widoczne bez scrolla.</div>
+      <div class="frame"><div class="app">
+        <div class="tbar"><img class="tb-logo" src="assets/logo-emblem-96.png"><span class="ttl">Social Media Downloader</span><span class="win"><i>—</i><i>▢</i><i>✕</i></span></div>
+        <div class="stack">
+          <div class="menustrip"><span>Plik</span><span>Edytuj</span><span>Sesja</span><span>Widok</span><span>Pomoc</span></div>
+          <div class="disc">⚠ Pobieranie wyłącznie treści, na które masz prawa / które są w domenie publicznej…</div>
+          <div class="cols">
+            <div class="pane left">
+              <div class="pane-t">ANALIZATOR</div>
+              <div class="urlbox"><span class="urlfield">instagram.com/p/DexBwdADpTo/</span><span class="btn btn-main">ANALIZUJ</span></div>
+              <div class="card"><div style="font-weight:600;color:#fff">Kosmiczna sesja</div>
+                <div style="font-size:9.7px;color:#8a8580">IG · seria 6 · 1080×1350 · @davethedavill · premium: brak</div></div>
+              <div class="row" style="gap:8px"><span class="qsel">1080p ▾</span><span style="font-size:9.5px;color:#7d7873">obraz → .jpg · wideo → .mp4</span></div>
+              <div class="card" style="font-size:9.8px"><b style="color:#fff">Skróty klawisz</b><div style="color:#8a8580;margin-top:3px;font-family:'Cascadia Mono',monospace">ENTER = analizuj · SPACJA = zaznacz · CTRL+B = batch</div></div>
+            </div>
+            <div class="pane">
+              <div class="pane-t">KOLEJKA · 2/6</div>
+              <div class="ent"><span class="cbx" style="background:#e2102c;border-color:#e2102c">✓</span><span class="nm">1 · Zdjęcie</span><span class="pbar"><i style="width:100%"></i></span><span class="mt">✓ zapisano</span></div>
+              <div class="ent"><span class="cbx" style="background:#e2102c;border-color:#e2102c">✓</span><span class="nm">2 · Wideo</span><span class="pbar"><i style="width:64%"></i></span><span class="mt">64%</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">3 · Zdjęcie</span></div>
+              <div class="ent"><span class="cbx off">✓</span><span class="nm">4 · Wideo</span></div>
+              <div class="minsched">[09:41:02] job ok      : img-1 → 79 934 B · 0.9 s
+[09:41:03] job running : vid-2 · ffmpeg 64%
+[09:41:05] info        : sesja IG aktywna · fallback anonimowy OK</div>
+            </div>
+          </div>
+          <div class="dock"><span>♠ Sesja IG:</span><span class="sess">● zapisana · sessionid=…ds_user_id=…</span><span class="btn btn-ghost small">EDYTUJ</span><span style="margin-left:auto;font-size:9.4px;color:#7d7873"><span class="gdot" style="background:#38e07b"></span> silnik :8765 · HWID win:00c4… · v1.0.0</span></div>
+          <div class="statusbar"><span>IMG 79 934 B ✓</span><span>VID 2 · ffmpeg 64%</span><span style="margin-left:auto">tryb darmowy</span></div>
+        </div>
+      </div></div>
+      <ul class="notes">
+        <li><b>Najbardziej „narzędziowy”</b> — Grid 2 kolumny + DockPanel; menu-strip = Menu WPF; log mono w Cascadia/Consolas.</li>
+        <li>Wszystko w 1 oknie bez scrolla — docelowo pod batch 6+ itemów IG i długie sesje.</li>
+        <li>Reklama (darmowy tryb) schodzi do docku — nie zagęszcza treści.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- ============ STOPKA ============ -->
+  <footer class="board-foot">
+    <div class="rule"></div>
+    <b>Jak to czytać?</b> Wszystkie 6 realizuje ten sam kontrakt funkcjonalny: disclaimer → link → ANALIZUJ → wynik + premium → jakość → lista pozycji (seria IG) → POBIERZ z paskiem postępu → wspólny status silnika 127.0.0.1:8765 + sesja IG. Różnią się <b>układem</b> i <b>kolorystyką</b> — palety wziąłem 1:1 z Twoich skórek portalu (pliki <b>themes/etamine/assets/css/skins/*.css</b> z pełnego backupu FTP), a magenta w #5 pochodzi z <b>logo-poster.jpg</b> (kadru intro). Logo: srebrna „bestia w rombie” z Twoich plików PNG (w repo nie ma wersji wektorowej — do ikony .ico/.AppIcon proponuje wygenerować raster z favicon-512).
+    <br><br>
+    <b>Decyzja (2026-10-24):</b> <b style="color:#ff5f6f">#2 TRIDENT = motyw główny</b>, <b style="color:#ffb4a2">#4 PLAKAT = motyw 2 (jasny)</b>, <b style="color:#d7aef5">#6 OPS = motyw premium</b> (odblokowuje 1× licencja / „premka”). #1/#3/#5 odłożone jako kandydaci (wizja co do słuszności — spójność z portalem (Trident) i funkcjonalność power-user za-premium (OPS), jasny wariant dla pracy w dzień (Plakat). <br><br>
+    <b>Nowe logo — „bestia trójzębna”</b> (SVG w <b>design/logo/</b>, preview: logo/logo-preview.html): DUO (srebro + czerwień → Trident), SILVER (mono → dziedzic obecnego srebrnego logo), RED (na jasnym → Plakat). Idea: pysk bestii z dotychczasowego sigilu przechodzi w pionową oś → poprzeczkę → <b>trójzębiec ψ</b> z grocami; rama-romb, uszy-kolce i węzłówki 1:1 z oryginału. SVG skaluje się bezstratnie — skala do .ico/favicon bez strat jakości. <br><br>
+    <b>Następny krok:</b> pełny styl XAML — ResourceDictionary `Theme-Trident.xaml` + `Theme-Plakat.xaml` + `Theme-Ops.xaml` (premium-gate), wymiana logo na SVG→PNG raster do zasobów WPF (SVG w WPF nie renderuje się natywnie — dam PNG 256/64/24/16).
+  </footer>
+
+</div>
+</body>
+</html>
