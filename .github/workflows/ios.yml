@@ -1,5 +1,7 @@
 # Budowa niepodpisanej .ipa na macOS runnerze (GitHub) — metoda „iOS bez Maca".
 # Artefakt: social-downloader-ipa → pobierz z Actions → Sideloadly na Windows
+# Trigger-test 2026-10-24: pierwszy push do pustego repo nie odpala workflow
+# (quirk GitHuba); ten komentarz to realna zmiana w pliku z listy paths — pushe match.
 # (+ iTunes/iCloud od Apple) → instalacja przez USB z darmowym Apple ID.
 name: iOS build
 
