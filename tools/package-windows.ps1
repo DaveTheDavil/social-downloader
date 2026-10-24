@@ -94,6 +94,19 @@ foreach ($extra in @('ffprobe.exe')) { # opcjonalny, gdyby stal w engine/ przy p
     if (Test-Path (Join-Path $engineDir $extra)) { Copy-Item (Join-Path $engineDir $extra) -Destination (Join-Path $staging "engine\$extra") }
 }
 
+# installer: kreator instalacji WPF (setup/) — INSTALATOR.bat na root + installer/
+$setupDir = Join-Path $repoRoot 'setup'
+if (Test-Path (Join-Path $setupDir 'instalator.ps1')) {
+    New-Item -ItemType Directory -Force -Path (Join-Path $staging 'installer') | Out-Null
+    Copy-Item (Join-Path $setupDir 'instalator.ps1') -Destination (Join-Path $staging 'installer\instalator.ps1') -Force
+    if (Test-Path (Join-Path $setupDir 'INSTALATOR.bat')) { Copy-Item (Join-Path $setupDir 'INSTALATOR.bat') -Destination (Join-Path $staging 'INSTALATOR.bat') -Force }
+    $logo256 = Join-Path $repoRoot 'windows\Assets\Logo\dtd-beast-trident-duo-256.png'
+    if (Test-Path $logo256) { Copy-Item $logo256 -Destination (Join-Path $staging 'installer\dtd-logo.png') -Force }
+    Write-Host '   installer/ (kreator instalacji) OK'
+} else {
+    Write-Host '   UWAGA: brak setup\instalator.ps1 — paczka BEZ kreatora instalacji' -ForegroundColor DarkYellow
+}
+
 # app: caly folder publish (flat, obiekty obj/ bin/ nie wchodza; print tylko lacznie)
 Copy-Item -Path (Join-Path $AppDir '*') -Destination (Join-Path $staging 'app') -Recurse -Force
 
@@ -130,6 +143,9 @@ WYMAGANIA
 
 URUCHOMIENIE
 1. Rozpakuj CALY folder zip (nie uruchamiaj pojedynczych plikow spod zipa).
+   Instalacja z kreatorem: uruchom INSTALATOR.bat (GUI, per-user;
+   skroty w Menu Start/Pulpit, odinstalowanie w "Programy i funkcje").
+   Wersja przenosna (bez instalacji): kroki 2-3.
 2. Kliknij dwukrotnie START.bat - silnik wystartuje bez okna,
    okno programu pojawi sie od razu.
    Recznie (zamiast START.bat): uruchom engine\downloader.exe,
