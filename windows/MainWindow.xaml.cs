@@ -209,13 +209,31 @@ public partial class MainWindow : Window
             System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
     }
 
-    /// <summary>Nagłówek: DUO na ciemnych motywach, RED na jasnym Plakacie (srebro na kremie ginie).</summary>
+    /// <summary>Nagłówek + brandowy baner: DUO na ciemnych motywach, RED na jasnym Plakacie (srebro na kremie ginie).</summary>
     private void RefreshHeaderLogo()
     {
         var variant = string.Equals(ThemeService.Current, "plakat", StringComparison.OrdinalIgnoreCase)
             ? "red"
             : "duo";
-        HeaderLogo.Source = new BitmapImage(
-            new Uri($"pack://application:,,,/Assets/Logo/dtd-beast-trident-{variant}-48.png"));
+        var uri = new Uri($"pack://application:,,,/Assets/Logo/dtd-beast-trident-{variant}-48.png");
+        HeaderLogo.Source = new BitmapImage(uri);
+        if (BrandLogo != null)
+        {
+            BrandLogo.Source = new BitmapImage(uri);
+        }
+    }
+
+    private const string PortalUrl = "https://thedavil.idsl.pl";
+
+    private void OpenBrandPortal_Click(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo { FileName = PortalUrl, UseShellExecute = true });
+        }
+        catch
+        {
+            // Brak przeglądarki/handlera — baner zostaje, nic nie wybucha.
+        }
     }
 }

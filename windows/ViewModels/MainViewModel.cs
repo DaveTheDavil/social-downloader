@@ -458,11 +458,27 @@ public class MainViewModel : INotifyPropertyChanged
         Items = coll;
     }
 
-    /// <summary>Reklamy przy starcie: premium-na-pliku (darmowy silnik) → sloty nie startują.</summary>
+    /// <summary>Startup: najpierw licencja (engine /license), potem decyzja o slotos-store — bez mismatch WPF-pliku licencji.</summary>
     private async Task LoadStartupAdsAsync()
     {
-        if (_license.IsPremium) return;
+        var premium = await RefreshLicenseAsync();
+        if (premium) return;
         await LoadAdsAsync();
+    }
+
+    /// <summary>Synchronizuje IsPremium z silnikiem (/license) — zwraca stan premium.</summary>
+    private async Task<bool> RefreshLicenseAsync()
+    {
+        try
+        {
+            var info = await _engine.GetLicenseAsync();
+            IsPremium = info?.Premium ?? false;
+            return IsPremium;
+        }
+        catch
+        {
+            return false; // silnik nieosiągalny → traktujemy jako darmowy tryb fail-safe
+        }
     }
 
     private async Task LoadAdsAsync()

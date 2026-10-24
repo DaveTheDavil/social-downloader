@@ -246,6 +246,29 @@
                                        Foreground="{DynamicResource Brush.TextMuted}" FontSize="11"
                                        VerticalAlignment="Center" Margin="10,0,0,0"/>
                         </StackPanel>
+
+                        <!-- Premium: panel aktywacji znika, w jego miejscu brandowy baner TheDAViL -->
+                        <Border x:Name="BrandBanner" Margin="0,10,0,0"
+                                Background="{DynamicResource Brush.Panel.Background}"
+                                BorderBrush="{DynamicResource Brush.Accent}" BorderThickness="1" CornerRadius="8"
+                                Padding="12,8" Cursor="Hand" MouseLeftButtonUp="OpenBrandPortal_Click"
+                                ToolTip="Portal TheDAViL — pasja · kreatywność · wolność"
+                                Visibility="{Binding IsPremium, Converter={x:Static local:BooleanToVisibilityConverter.Instance}}">
+                            <DockPanel>
+                                <Image x:Name="BrandLogo" Height="30" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                                <TextBlock DockPanel.Dock="Right" Text="→ thedavil.idsl.pl"
+                                           FontFamily="{DynamicResource Font.BodySemiBold}" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource Brush.Accent}" Margin="10,0,0,0"/>
+                                <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                    <TextBlock FontFamily="{DynamicResource Font.Title}" FontSize="15"
+                                               Foreground="{DynamicResource Brush.Heading}">
+                                        <Run Text="DAVE"/><Run Text="THE" Foreground="{DynamicResource Brush.TextMuted}"/><Run Text="DAVIL" Foreground="{DynamicResource Brush.Accent}"/>
+                                    </TextBlock>
+                                    <TextBlock Text="Wersja premium aktywna — dziękujemy za wsparcie!" FontSize="10.5"
+                                               Foreground="{DynamicResource Brush.TextMuted}" Margin="0,1,0,0"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
                     </StackPanel>
 
                     <!-- Prawa szyna: rect 300×250 + drugi rect 300×250 (gdy ma cokolwiek) -->
