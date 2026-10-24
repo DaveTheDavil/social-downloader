@@ -193,7 +193,11 @@ public class EngineClient : IDisposable
             return false;
         }
         var doc = await resp.Content.ReadFromJsonAsync<IgCookieResponse>();
-        return doc?.Configured ?? false;
+        // UWAGA: sukces wg "ok" (zawsze true przy udanym zapisie/czyszczeniu).
+        // "configured" reflektuje tylko NIEPUSTOŚĆ cookie — zwracanie go jako
+        // statusu sukcesu dawało fałszywe „nie udało się" przy czyszczeniu
+        // i błędne „Sprawdź, czy silnik działa" przy działającym silniku.
+        return doc?.Ok ?? false;
     }
 
     public async Task<bool> HealthCheckAsync()

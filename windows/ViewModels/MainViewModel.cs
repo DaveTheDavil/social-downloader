@@ -334,7 +334,9 @@ public class MainViewModel : INotifyPropertyChanged
         else
         {
             Status = "Nie udało się zapisać sesji Instagram.";
-            Error = string.IsNullOrEmpty(_engine.LastError) ? "Sprawdź, czy silnik działa." : _engine.LastError;
+            Error = string.IsNullOrEmpty(_engine.LastError)
+                ? "Silnik nie potwierdził zapisu sesji (nieoczekiwana odpowiedź) — spróbuj ponownie."
+                : _engine.LastError;
         }
     }
 
