@@ -216,7 +216,8 @@
                         </Border>
 
                         <!-- Sesja Instagram: paste cookie → pełne serie zdjęć.
-                             Zawsze widoczny — można podmienić/wyczyścić cookie; label pokazuje stan. -->
+                             Zapisz = działa tylko przy wklejonym cookie (puste pole NIE kasuje sesji).
+                             Wyczyść = jawne kasowanie z potwierdzeniem; label pokazuje stan. -->
                         <Border Style="{DynamicResource SectionCard}" Margin="0,0,0,8">
                             <StackPanel>
                                 <TextBlock Text="SESJA INSTAGRAM — PEŁNE SERIE ZDJĘĆ" Style="{DynamicResource SubHeading}" Margin="0,0,0,6"/>
@@ -228,8 +229,13 @@
                                     <TextBox Grid.Column="0"
                                              Text="{Binding IgCookieInput, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
                                              ToolTip="Wklej cookie z przeglądarki (App devtools → Application → Cookies → www.instagram.com) — minimum: sessionid=...; ds_user_id=..."/>
-                                    <Button Grid.Column="1" Content="Zapisz sesję" Command="{Binding SaveIgCookieCommand}"
-                                            Style="{DynamicResource PrimaryButton}" Margin="8,0,0,0" MinWidth="120"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="8,0,0,0">
+                                        <Button Content="Zapisz sesję" Command="{Binding SaveIgCookieCommand}"
+                                                Style="{DynamicResource PrimaryButton}" MinWidth="120"/>
+                                        <Button Content="Wyczyść" Command="{Binding ClearIgCookieCommand}"
+                                                Style="{DynamicResource GhostButton}" MinWidth="86" Margin="6,0,0,0"
+                                                ToolTip="Usuwa zapisaną sesję IG (tryb anonimowy) — najpierw pyta o potwierdzenie"/>
+                                    </StackPanel>
                                 </Grid>
                                 <TextBlock Text="{Binding IgSessionLabel, FallbackValue='Sesja IG: nie ustawiona'}"
                                            FontSize="11" Foreground="{DynamicResource Brush.Warn}" Margin="0,4,0,0" TextWrapping="Wrap"/>

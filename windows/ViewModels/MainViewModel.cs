@@ -101,6 +101,7 @@ public class MainViewModel : INotifyPropertyChanged
         ActivateLicenseCommand = new RelayCommand(_ => ActivateLicense(), _ => !IsDownloading);
         ChooseFolderCommand = new RelayCommand(_ => ChooseFolder(), _ => !IsDownloading);
         SaveIgCookieCommand = new RelayCommand(_ => SaveIgCookieAsync(), _ => !IsDownloading);
+        ClearIgCookieCommand = new RelayCommand(_ => ClearIgCookieAsync(), _ => !IsDownloading);
 
         // Stan sesji IG odpytany przy starcie (silnik zna plik ig-cookie.txt).
         _ = RefreshIgSessionAsync();
@@ -315,27 +316,66 @@ public class MainViewModel : INotifyPropertyChanged
         return conf;
     }
 
-    /// <summary>Zapis/czyszczenie sesji IG wg IgCookieInput (async na wątku UI).</summary>
+    /// <summary>
+    /// Zapis sesji IG wg IgCookieInput. Puste pole NIE kasuje już zapisanej sesji
+    /// (dawne zachowanie: klik „Zapisz" z pustym polem = wymaz sesji → tryb anonimowy).
+    /// Czyszczenie = jawnie przyciskiem „Wyczyść" (ClearIgCookieAsync) z potwierdzeniem.
+    /// </summary>
     public async void SaveIgCookieAsync()
     {
         Error = string.Empty;
         var cookie = (IgCookieInput ?? "").Trim();
+        if (cookie.Length == 0)
+        {
+            // Cookie NIE jest logowane ani pokazywane — tylko zapis do silnika (plik ig-cookie.txt).
+            Status = "Wklej cookie IG w pole (jest puste) — czyszczenie jest pod osobnym przyciskiem „Wyczyść”.";
+            return;
+        }
+        await PersistIgCookieAsync(cookie);
+    }
+
+    /// <summary>Jawne czyszczenie sesji IG (przycisk „Wyczyść") — z potwierdzeniem, bo akcja destrukcyjna.</summary>
+    public async void ClearIgCookieAsync()
+    {
+        Error = string.Empty;
+        if (!IgSessionConfigured)
+        {
+            Status = "Brak zapisanej sesji IG — nic do wyczyszczenia.";
+            return;
+        }
+        var answer = System.Windows.MessageBox.Show(
+            "Wyczyścić zapisaną sesję Instagram?\n\nPełne serie zdjęć będą niedostępne (tryb anonimowy).",
+            "Sesja IG",
+            System.Windows.MessageBoxButton.YesNo,
+            System.Windows.MessageBoxImage.Question,
+            System.Windows.MessageBoxResult.No);
+        if (answer != System.Windows.MessageBoxResult.Yes)
+        {
+            Status = "Czyszczenie anulowane — sesja IG nadal aktywna.";
+            return;
+        }
+        await PersistIgCookieAsync("");
+    }
+
+    /// <summary>Wspólny POST /ig-cookie (zapis LUB czyszczenie) + odświeżenie labelki stanu.</summary>
+    private async Task PersistIgCookieAsync(string cookie)
+    {
         // Cookie NIE jest logowane ani pokazywane — tylko zapis do silnika (plik ig-cookie.txt).
         Status = cookie.Length == 0 ? "Czyszczenie sesji Instagram..." : "Zapisywanie sesji Instagram...";
         var ok = await _engine.SetIgCookieAsync(cookie);
         await RefreshIgSessionAsync();
         if (ok)
         {
-            IgCookieInput = ""; // ciasteczka nie zostają w polu tekstowym
+            if (cookie.Length > 0) IgCookieInput = ""; // ciasteczka nie zostają w polu tekstowym
             Status = cookie.Length == 0
                 ? "Sesja Instagram wyczyszczona — tryb anonimowy."
                 : "Sesja Instagram zapisana (ig-cookie.txt) — pełne serie zdjęć dostępne.";
         }
         else
         {
-            Status = "Nie udało się zapisać sesji Instagram.";
+            Status = cookie.Length == 0 ? "Nie udało się wyczyścić sesji Instagram." : "Nie udało się zapisać sesji Instagram.";
             Error = string.IsNullOrEmpty(_engine.LastError)
-                ? "Silnik nie potwierdził zapisu sesji (nieoczekiwana odpowiedź) — spróbuj ponownie."
+                ? "Silnik nie potwierdził operacji (nieoczekiwana odpowiedź) — spróbuj ponownie."
                 : _engine.LastError;
         }
     }
@@ -345,6 +385,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand ActivateLicenseCommand { get; }
     public ICommand ChooseFolderCommand { get; }
     public ICommand SaveIgCookieCommand { get; }
+    public ICommand ClearIgCookieCommand { get; }
 
     public async void AnalyzeAsync()
     {
