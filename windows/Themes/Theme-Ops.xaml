@@ -2,39 +2,40 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- ═══════════════════════════════════════════════════════════════
-         MOTYW #6 OPS COMPACT — PREMIUM ONLY (mono + czerwona purpura)
-         grafit #0a0a0a / karta #101010 / czerwień #e2172c, nagłówki czerwone
+         MOTYW #6 OPS — NEON PREMIUM (nocny fiolet, paleta #3 NEON TERMINAL)
+         tło #0a0715 / karta #160f2a / neon pink #ff2e6d / teal #5eead4
+         — celowo inna chemia niż Trident (neutralna czerń + czerwień)
          ═══════════════════════════════════════════════════════════════ -->
 
-    <SolidColorBrush x:Key="Brush.Window.Background" Color="#FF0A0A0A"/>
-    <SolidColorBrush x:Key="Brush.Panel.Background" Color="#FF101010"/>
-    <SolidColorBrush x:Key="Brush.Panel.Border" Color="#FF2A2A2A"/>
+    <SolidColorBrush x:Key="Brush.Window.Background" Color="#FF0A0715"/>
+    <SolidColorBrush x:Key="Brush.Panel.Background" Color="#FF160F2A"/>
+    <SolidColorBrush x:Key="Brush.Panel.Border" Color="#FF2B2050"/>
 
-    <SolidColorBrush x:Key="Brush.Input.Background" Color="#FF060606"/>
-    <SolidColorBrush x:Key="Brush.Input.Border" Color="#FF383838"/>
+    <SolidColorBrush x:Key="Brush.Input.Background" Color="#FF0D0818"/>
+    <SolidColorBrush x:Key="Brush.Input.Border" Color="#FF241A44"/>
 
-    <SolidColorBrush x:Key="Brush.Text" Color="#FFD6D6D6"/>
-    <SolidColorBrush x:Key="Brush.TextDim" Color="#FF8C8C8C"/>
-    <SolidColorBrush x:Key="Brush.TextMuted" Color="#FF5E5E5E"/>
+    <SolidColorBrush x:Key="Brush.Text" Color="#FFE6DEFA"/>
+    <SolidColorBrush x:Key="Brush.TextDim" Color="#FF9A92B8"/>
+    <SolidColorBrush x:Key="Brush.TextMuted" Color="#FF6F6A80"/>
 
-    <SolidColorBrush x:Key="Brush.Heading" Color="#FFFF3B4E"/>
-    <SolidColorBrush x:Key="Brush.Accent" Color="#FFE2172C"/>
-    <SolidColorBrush x:Key="Brush.AccentBright" Color="#FFFF2540"/>
+    <SolidColorBrush x:Key="Brush.Heading" Color="#FF5EEAD4"/>
+    <SolidColorBrush x:Key="Brush.Accent" Color="#FFFF2E6D"/>
+    <SolidColorBrush x:Key="Brush.AccentBright" Color="#FFFF5F8F"/>
     <SolidColorBrush x:Key="Brush.TextOnAccent" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="Brush.Button.Hover" Color="#FF191919"/>
+    <SolidColorBrush x:Key="Brush.Button.Hover" Color="#FF1C1436"/>
 
     <SolidColorBrush x:Key="Brush.Error" Color="#FFFF6B6B"/>
-    <SolidColorBrush x:Key="Brush.Ok" Color="#FF35D07F"/>
-    <SolidColorBrush x:Key="Brush.Warn" Color="#FFFFA85C"/>
+    <SolidColorBrush x:Key="Brush.Ok" Color="#FF38E07B"/>
+    <SolidColorBrush x:Key="Brush.Warn" Color="#FFF5C400"/>
 
     <!-- Baner reklamowy: ŻÓŁTY kontrakt — stały we wszystkich motywach -->
     <SolidColorBrush x:Key="Brush.Ad.BannerBackground" Color="#FFFFF9E6"/>
     <SolidColorBrush x:Key="Brush.Ad.BannerBorder" Color="#FFFFD700"/>
     <SolidColorBrush x:Key="Brush.Ad.BannerText" Color="#FF26200E"/>
 
-    <SolidColorBrush x:Key="Brush.List.Selection" Color="#FF2C1418"/>
+    <SolidColorBrush x:Key="Brush.List.Selection" Color="#FF241A44"/>
 
-    <SolidColorBrush x:Key="Brush.StatusBar.Background" Color="#FF060606"/>
-    <SolidColorBrush x:Key="Brush.StatusBar.Border" Color="#FF2A2A2A"/>
+    <SolidColorBrush x:Key="Brush.StatusBar.Background" Color="#FF0D0818"/>
+    <SolidColorBrush x:Key="Brush.StatusBar.Border" Color="#FF241A44"/>
 
 </ResourceDictionary>
