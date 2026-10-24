@@ -26,12 +26,20 @@ jobs:
 
       - name: Build unsigned app
         run: |
+          set -o pipefail
           xcodebuild -project SocialDownloader.xcodeproj \
             -scheme SocialDownloader \
             -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO 2>&1 | tee build-full.log
+          st=$?
+          if [ $st -ne 0 ]; then
+            echo "::error::xcodebuild failed (exit $st) — error lines:"
+            grep -E "error:" build-full.log | grep -v "\^?[0-9]+ warning" | head -30 | while IFS= read -r line; do echo "::error::$line"; done
+            grep -E "error:" -c build-full.log >/dev/null || echo "::error::brak linii 'error:' w logu — patrz pełny log"
+            exit $st
+          fi
         working-directory: ios
 
       - name: Package IPA
