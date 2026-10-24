@@ -27,19 +27,28 @@ jobs:
       - name: Build unsigned app
         run: |
           set -o pipefail
+          st=0
           xcodebuild -project SocialDownloader.xcodeproj \
             -scheme SocialDownloader \
             -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO 2>&1 | tee build-full.log
-          st=$?
-          if [ $st -ne 0 ]; then
-            echo "::error::xcodebuild failed (exit $st) — error lines:"
-            grep -E "error:" build-full.log | grep -v "\^?[0-9]+ warning" | head -30 | while IFS= read -r line; do echo "::error::$line"; done
-            grep -E "error:" -c build-full.log >/dev/null || echo "::error::brak linii 'error:' w logu — patrz pełny log"
-            exit $st
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO 2>&1 | tee build-full.log || st=$?
+          if [ "$st" -ne 0 ]; then
+            {
+              echo "### xcodebuild exit $st — tail 150 linii"
+              echo '```'
+              tail -n 150 build-full.log || true
+              echo '```'
+              echo "### wiersze z error:"
+              echo '```'
+              grep -E "error:" build-full.log | head -40 || echo "(brak wierszy 'error:')"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            grep -E "\.swift:[0-9]+:[0-9]+: error:" build-full.log | head -10 | while IFS= read -r line; do echo "::error::$line"; done
+            echo "::error::xcodebuild exit $st (szczególy w GITHUB_STEP_SUMMARY)"
           fi
+          exit "$st"
         working-directory: ios
 
       - name: Package IPA
