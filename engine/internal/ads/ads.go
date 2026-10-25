@@ -12,12 +12,12 @@ type AdUnit struct {
 	Advertiser   string `json:"advertiser"`
 	Title        string `json:"title"`
 	Description  string `json:"description"`
-	URL          string `json:"url"`          // link docelowy po kliknięciu
-	Image        string `json:"image"`        // ścieżka lokalna lub URL do grafiki
-	Type         string `json:"type"`         // banner | interstitial
-	Weight       int    `json:"weight"`       // waga w losowaniu (domyślnie 1)
-	Seconds      int    `json:"seconds"`      // czas wyświetlania interstitial (sekundy)
-	Clickthrough string `json:"clickthrough"` // parametr śledzenia kliknięcia (opcjonalnie)
+	URL          string `json:"url"`                    // link docelowy po kliknięciu
+	Image        string `json:"image"`                  // ścieżka lokalna lub URL do grafiki
+	Type         string `json:"type"`                   // banner | interstitial
+	Weight       int    `json:"weight"`                 // waga w losowaniu (domyślnie 1)
+	Seconds      int    `json:"seconds,omitempty"`      // czas wyświetlania interstitial (sekundy)
+	Clickthrough string `json:"clickthrough,omitempty"` // parametr śledzenia kliknięcia (opcjonalnie)
 }
 
 // Config to cała konfiguracja reklam wczytywana z pliku JSON.

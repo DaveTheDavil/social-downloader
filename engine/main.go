@@ -71,10 +71,21 @@ func main() {
 	}
 
 	// Wczytaj konfigurację reklam
-	adCfg, err := ads.Load(filepath.Join(engineDir, adsConfigFile))
+	adsConfigPath := filepath.Join(engineDir, adsConfigFile)
+	adCfg, err := ads.Load(adsConfigPath)
 	if err != nil {
 		log.Printf("[engine] ostrzeżenie: nie wczytano konfiguracji reklam: %v (brak reklam)", err)
 		adCfg = &ads.Config{}
+	}
+
+	// Katalogi kreatyw reklam (podgląd + upload w panelu /ads-panel):
+	// 1. adsimg obok silnika (samowystarczalny layout),
+	// 2. ../app/AdsImg  — layout zainstalowany/paczka (kreatywy jada z klientem),
+	// 3. ../windows/AdsImg — katalog dev-repo (rozwoj autora).
+	adsImageDirs := []string{
+		filepath.Join(engineDir, "adsimg"),
+		filepath.Join(engineDir, "..", "app", "AdsImg"),
+		filepath.Join(engineDir, "..", "windows", "AdsImg"),
 	}
 
 	ytDlpPath := filepath.Join(engineDir, updater.BinaryPath())
@@ -120,10 +131,13 @@ func main() {
 		Ads:           adCfg,
 		IgCookie:      igCookie,
 		IgCookieFile:  igCookiePath,
+		AdsFile:       adsConfigPath,
+		AdsImageDirs:  adsImageDirs,
 	})
 
 	go func() {
 		log.Printf("[engine] API nasłuchuje na %s", addr)
+		log.Printf("[engine] panel reklamodawców: http://%s/ads-panel", addr)
 		if err := srv.Start(); err != nil {
 			log.Fatalf("[engine] błąd serwera API: %v", err)
 		}

@@ -68,6 +68,12 @@ type Config struct {
 	// (UTF-8 bez BOM obok executable). Zarządzane pod igMu.
 	IgCookie     string
 	IgCookieFile string
+	// AdsFile — pełna ścieżka ads-config.json (panel /ads-panel: odczyt+zapis).
+	// Puste = panel zapisuje, ale GET i tak pokazuje konfigurację z pamięci.
+	AdsFile string
+	// AdsImageDirs — katalogi kreatyw (podgląd/upload w panelu), w kolejności
+	// priorytetu; pierwszy istniejący = katalog uploadu.
+	AdsImageDirs []string
 }
 
 // maxIgCookieLen — twardy limit POST /ig-cookie (nagłówek Cookie ma limit ~8 KB;
@@ -76,11 +82,12 @@ const maxIgCookieLen = 16 << 10
 
 // Server zawiera zależności handlerów oraz referencję do http.Server.
 type Server struct {
-	cfg  *Config
-	srv  *http.Server
-	jobs map[string]*Job
-	mu   sync.Mutex
-	igMu sync.Mutex // chroni cfg.IgCookie oraz plik IgCookieFile
+	cfg   *Config
+	srv   *http.Server
+	jobs  map[string]*Job
+	mu    sync.Mutex
+	igMu  sync.Mutex // chroni cfg.IgCookie oraz plik IgCookieFile
+	adsMu sync.Mutex // chroni podmianę cfg.Ads (panel /ads-panel: hot-swap)
 }
 
 func New(cfg *Config) *Server {
@@ -110,6 +117,11 @@ func (s *Server) Router() http.Handler {
 	mux.HandleFunc("/license", s.handleLicense)
 	mux.HandleFunc("/ads", s.handleAds)
 	mux.HandleFunc("/ig-cookie", s.handleIgCookie)
+	// Panel webowy reklamodawców (tylko tryb lokalny, patrz ads_panel.go).
+	mux.HandleFunc("/ads-panel", s.handleAdsPanel)
+	mux.HandleFunc("/ads-config", s.handleAdsConfig)
+	mux.HandleFunc("/ads-image", s.handleAdsImage)
+	mux.HandleFunc("/adsimg", s.handleAdsImg)
 	return mux
 }
 
@@ -808,8 +820,10 @@ func (s *Server) handleAds(w http.ResponseWriter, r *http.Request) {
 
 	var ad interface{}
 	// Premium: bez reklam (spec: jednorazowe odblokowanie usuwa banery i interstitial).
-	if s.cfg.License == nil && s.cfg.Ads != nil {
-		ad = s.cfg.Ads.Pick(typ)
+	// Hot-swap: odczyt pod adsMu (panel /ads-config może wymienić konfigurację).
+	ac := s.currentAds()
+	if s.cfg.License == nil && ac != nil {
+		ad = ac.Pick(typ)
 	}
 
 	writeJSON(w, map[string]interface{}{
