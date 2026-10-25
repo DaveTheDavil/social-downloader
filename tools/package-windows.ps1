@@ -27,7 +27,9 @@
 param(
     [string]$Version = '1.0.0',
     # Folder z wynikiem dotnet publish klienta (self-contained!); pusty -> windows\publish
-    [string]$AppDir = ''
+    [string]$AppDir = '',
+    # Pomini podpisywanie binarek (SD_SIGN_* niekonfigurowane i tak = stub)
+    [switch]$NoSign
 )
 
 $ErrorActionPreference = 'Stop'
@@ -78,6 +80,25 @@ if (-not (Test-Path (Join-Path $AppDir 'hostfxr.dll'))) {
     exit 1
 }
 Write-Host '   app: OK (self-contained, hostfxr.dll obecny)'
+
+# ---------------------------------------------------------------------------
+# 1b. Podpis cyfrowy binarek (code signing) - PRZED stagingiem, zeby ZIP
+#     niesl JUZ podpisane pliki. Bez SD_SIGN_* w srodowisku: stub (warn
+#     "UNSIGNED", pakowanie trwa dalej). Nieudane podpisanie = exit 2 ->
+#     pakowanie przerwane (pol podpisana paczka nie moze wyjsc).
+#     Szczegoly: tools\signing\README-SIGNING.md
+# ---------------------------------------------------------------------------
+if (-not $NoSign) {
+    Write-Host '-> Podpis cyfrowy (Sign-Binaries) ...' -ForegroundColor Yellow
+    powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'signing\Sign-Binaries.ps1')
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "BLAD: podpisywanie nie powiodlo sie (Sign-Binaries exit $LASTEXITCODE)." -ForegroundColor Red
+        Write-Host '      Napraw konfiguracje SD_SIGN_* (tools\signing\README-SIGNING.md)' -ForegroundColor Red
+        Write-Host '      albo zamknij procesy trzymajace pliki i odpal pakowanie ponownie;' -ForegroundColor Red
+        Write-Host '      awaryjnie: kolejny rzut pakowania z -NoSign (paczka bez podpisu).' -ForegroundColor Red
+        exit 1
+    }
+}
 
 # ---------------------------------------------------------------------------
 # 2. Czysty staging <Desktop>\INSTALKA\SocialDownloader
@@ -153,6 +174,12 @@ URUCHOMIENIE
 3. Pierwsze uruchomienie: SmartScreen/antywirus moze zapytac o pliki
    bez cyfrowego podpisu. Wybierz "Wiecej informacji", potem
    "Uruchom mimo wszystko" (dotyczy zwykle yt-dlp.exe/downloader.exe).
+
+PODPIS CYFROWY
+- Pipeline podpisywania jest wbudowany w pakowanie. Jesli binarki w tej
+  paczce sa podpisane, UAC/SmartScreen pokaza nazwe wydawcy i ostrzezenia
+  powyzej zwykle znikna. Weryfikacja reczna: klik na exe -> Wlasciwosci ->
+  Podpisy cyfrowe (zakladka istnieje tylko przy podpisanych plikach).
 
 JAK TO DZIALA
 - Program wysyla zadania do lokalnego silnika (engine\downloader.exe),
